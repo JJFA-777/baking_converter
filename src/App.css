@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
   /* Color Palette */
@@ -8,7 +8,7 @@
   --color-champagne: #F7E7CE;
   --color-cream: #FDFCF8;
   --color-surface: #FFFFFF;
-  --color-text: #1A1206;
+  --color-text: #3C2A21;
   --color-text-muted: #8E8471;
   --color-border: #EAE6DA;
   --color-shadow: rgba(26, 18, 6, 0.06);
@@ -17,9 +17,17 @@
   /* Typography */
   --font-serif: 'Playfair Display', serif;
   --font-sans: 'Inter', sans-serif;
+  --font-handwriting: 'Dancing Script', cursive;
 
   /* Transitions */
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bc-handwriting-title {
+  font-family: var(--font-handwriting) !important;
+  font-size: 2em;
+  font-weight: 700;
+  color: inherit;
 }
 
 /* ─── Reset & Base ──────────────────────────────────────────────────────────── */
@@ -348,12 +356,18 @@ body {
 .bc-custom-title {
   padding: 24px 24px 8px;
   font-family: var(--font-serif);
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--color-text);
 }
 
-.bc-custom-fields { padding: 0 24px 24px; display: flex; flex-direction: column; gap: 16px; }
+.bc-custom-fields {
+  padding: 0 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 12px;
+}
 
 .bc-input, .bc-select {
   width: 100%;
@@ -426,8 +440,8 @@ body {
 /* ─── Book Cards ───────────────────────────────────────────────────────────── */
 .bc-books-section { padding: 32px 0; border-top: 1px solid var(--color-border); }
 .bc-books-header { text-align: center; margin-bottom: 20px; }
-.bc-books-label { font-family: var(--font-serif); font-size: 18px; font-weight: 700; }
-.bc-books-sub { font-size: 12px; color: var(--color-text-muted); }
+.bc-books-label { font-family: var(--font-serif); font-size: 28px; font-weight: 700; }
+.bc-books-sub { font-size: 12px; font-weight: 600; letter-spacing: 0.4em; color: var(--color-gold); text-transform: uppercase; }
 
 .bc-books-scroll {
   display: flex;
@@ -442,6 +456,7 @@ body {
   flex: 0 0 140px;
   text-decoration: none;
   transition: var(--transition-smooth);
+  position: relative;
 }
 .bc-book-card:hover { transform: translateY(-5px); }
 
@@ -450,32 +465,67 @@ body {
   border-radius: 4px 12px 12px 4px;
   position: relative;
   box-shadow: 8px 12px 24px var(--color-shadow-heavy);
-  display: flex;
   overflow: hidden;
 }
 
-.bc-book-spine { width: 12px; height: 100%; }
-.bc-book-cover-content {
-  flex: 1;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  color: white;
+.bc-book-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-.bc-book-cover-title { font-family: var(--font-serif); font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-.bc-book-cover-subtitle { font-size: 10px; text-transform: uppercase; opacity: 0.9; }
+
+.bc-book-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+  display: flex;
+  align-items: flex-end;
+  padding: 12px;
+  pointer-events: none;
+}
+
+.bc-book-title-overlay {
+  color: white;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  width: 100%;
+}
 
 .bc-book-cta {
-  margin-top: 12px;
-  padding: 8px;
-  background: #25D366;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, var(--color-gold-dark), var(--color-gold));
   color: white;
   text-align: center;
-  border-radius: 8px;
+  padding: 10px;
+  border-radius: 0 0 12px 12px;
   font-size: 11px;
   font-weight: 700;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.32, 1.15, 0.58, 1), opacity 0.3s ease;
+  z-index: 10;
+}
+
+.bc-book-card:hover .bc-book-cta {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .bc-book-cta {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* ─── Animations ────────────────────────────────────────────────────────────── */
@@ -486,4 +536,142 @@ body {
 @keyframes bc-fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+.bc-hint {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-top: 16px;
+  font-weight: 500;
+}
+
+.bc-books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 20px;
+  padding: 20px 24px 120px;
+}
+
+.bc-books-grid-item {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Missing Styles for MVP ─────────────────────────────────────────────────── */
+.bc-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.bc-row > .bc-field {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.bc-search-icon-wrap {
+  display: flex;
+  align-items: center;
+  color: var(--color-text-muted);
+}
+
+.bc-search-clear {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  padding: 0 4px;
+}
+
+.bc-tab-icon {
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+
+.bc-err {
+  color: #CC4444;
+  font-size: 12px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.bc-empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--color-text-muted);
+}
+
+.bc-empty-state span {
+  display: block;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.bc-saved-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  margin: 32px 0 16px;
+}
+
+.bc-custom-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.bc-use-btn {
+  padding: 8px 16px;
+  background: var(--color-champagne);
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--color-gold-dark);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.bc-del-btn {
+  padding: 8px;
+  background: #FFF5F5;
+  border: none;
+  border-radius: 8px;
+  color: #CC4444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.bc-wa-icon {
+  font-size: 18px;
+  margin-right: 4px;
+}
+
+.bc-books-sub-large {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--color-gold);
+  text-transform: uppercase;
+  margin-top: 12px;
+}
+
+.bc-note {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-top: 8px;
+}
+
+.bc-custom-footer-note {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-top: 12px;
 }

@@ -202,6 +202,7 @@ const INGREDIENT_GROUPS = [
       { id: "breadcrumbs_fresh",     name: "Breadcrumbs (fresh)",         gramsPerCup: 60,  icon: "🍞" },
       { id: "graham_cracker_crumbs", name: "Graham Cracker Crumbs",       gramsPerCup: 100, icon: "🍪" },
       { id: "sourdough_starter",     name: "Sourdough Starter (active)",  gramsPerCup: 240, icon: "🍞" },
+      { id: "oat_milk",              name: "Oat Milk",                   gramsPerCup: 240, icon: "🥣" },
     ],
   },
   {
@@ -253,9 +254,7 @@ const INGREDIENT_GROUPS = [
   },
 ];
 
-const DEFAULT_INGREDIENTS = INGREDIENT_GROUPS.flatMap(g =>
-  g.items.map(i => ({ ...i, groupName: g.label }))
-);
+const DEFAULT_INGREDIENTS = INGREDIENT_GROUPS.flatMap(g => g.items);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // UNITS
@@ -312,38 +311,24 @@ function saveCustom(list) {
 // ─────────────────────────────────────────────────────────────────────────────
 // CONFIG & ADS
 // ─────────────────────────────────────────────────────────────────────────────
-const WA_NUMBER = "";
+const WA_NUMBER = "+233500880529";
 const BOOKS = [
-  {
-    id: "book-1",
-    title: "The Art of Sourdough",
-    subtitle: "Mastering Natural Leavening",
-    gradient: "linear-gradient(135deg, #8B4513, #A0522D)",
-    spine: "#5D2E0C",
-    textColor: "#FFF",
-    accent: "#D4AF37",
-    message: "Hi! I'm interested in 'The Art of Sourdough' book. Could you tell me more?"
-  },
-  {
-    id: "book-2",
-    title: "Pastry Perfection",
-    subtitle: "Luxe Desserts & Tarts",
-    gradient: "linear-gradient(135deg, #FFD700, #FFA500)",
-    spine: "#CC8400",
-    textColor: "#1A1206",
-    accent: "#8B4513",
-    message: "Hi! I'm interested in 'Pastry Perfection' book. Could you tell me more?"
-  },
-  {
-    id: "book-3",
-    title: "Baking Science",
-    subtitle: "The Physics of Flavor",
-    gradient: "linear-gradient(135deg, #E6E6FA, #D8BFD8)",
-    spine: "#9370DB",
-    textColor: "#1A1206",
-    accent: "#4B0082",
-    message: "Hi! I'm interested in 'Baking Science' book. Could you tell me more?"
-  }
+  { id: "book-1", title: "Volume 1: Cakes", image: "/images/Volume-1_Cakes.png", message: "Hi! I'm interested in 'Volume 1: Cakes' ebook. Could you tell me more?" },
+  { id: "book-2", title: "Volume 2: Quick Breads", image: "/images/Volume-2_Quick-Breads.png", message: "Hi! I'm interested in 'Volume 2: Quick Breads' ebook. Could you tell me more?" },
+  { id: "book-3", title: "Volume 3: Cake Fillings Encyclopaedia", image: "/images/Volume-3_Cake-Fillings-Encyclopaedia.png", message: "Hi! I'm interested in 'Volume 3: Cake Fillings Encyclopaedia' ebook. Could you tell me more?" },
+  { id: "book-4", title: "Volume 4: Ice Cream Making", image: "/images/Volume-4_Ice-Cream-Making.png", message: "Hi! I'm interested in 'Volume 4: Ice Cream Making' ebook. Could you tell me more?" },
+  { id: "book-5", title: "Volume 5: Mastering Cake Business", image: "/images/Volume-5_Mastering-Cake-Business.jpeg", message: "Hi! I'm interested in 'Volume 5: Mastering Cake Business' ebook. Could you tell me more?" },
+  { id: "book-6", title: "Volume 6: Dessert Masters", image: "/images/Volume-6_Dessert-Masters.png", message: "Hi! I'm interested in 'Volume 6: Dessert Masters' ebook. Could you tell me more?" },
+  { id: "book-7", title: "Volume 7: Homemade Bread Manual", image: "/images/Volume-7_Homemade_Bread_Manual.jpg", message: "Hi! I'm interested in 'Volume 7: Homemade Bread Manual' ebook. Could you tell me more?" },
+  { id: "book-8", title: "Volume 8: Perfect Donut Recipe", image: "/images/Volume-8_Perfect-Donut-Recipe.jpg", message: "Hi! I'm interested in 'Volume 8: Perfect Donut Recipe' ebook. Could you tell me more?" },
+  { id: "book-9", title: "Volume 9: Yoghurt Making", image: "/images/Volume-9_Yoghurt-Making.png", message: "Hi! I'm interested in 'Volume 9: Yoghurt Making' ebook. Could you tell me more?" },
+  { id: "book-10", title: "Volume 10: Tropical Climate Fondant Recipe", image: "/images/Volume-10_Tropical-Climate-Fondant-Recipe.png", message: "Hi! I'm interested in 'Volume 10: Tropical Climate Fondant Recipe' ebook. Could you tell me more?" },
+  { id: "book-11", title: "Volume 11: Scrumptious Smoothies", image: "/images/Volume-11_Scrumptious Smoothies.png", message: "Hi! I'm interested in 'Volume 11: Scrumptious Smoothies' ebook. Could you tell me more?" },
+  { id: "book-12", title: "Volume 12: Homemade Chocolate Making", image: "/images/Volume-12_Homemade-Chocolate Making.jpg", message: "Hi! I'm interested in 'Volume 12: Homemade Chocolate Making' ebook. Could you tell me more?" },
+  { id: "book-13", title: "Volume 13: Sugar-Free Cakes", image: "/images/Volume-13_Sugar-Free-Cakes.png", message: "Hi! I'm interested in 'Volume 13: Sugar-Free Cakes' ebook. Could you tell me more?" },
+  { id: "book-14", title: "Volume 14: Eat Desserts n' Still Lose Weight", image: "/images/Volume-14_Eat-Desserts-n-Still-Lose-Weight.png", message: "Hi! I'm interested in 'Volume 14: Eat Desserts n' Still Lose Weight' ebook. Could you tell me more?" },
+  { id: "book-15", title: "Volume 15: Parfait Manual", image: "/images/Volume-15_Parfait-Mansal.png", message: "Hi! I'm interested in 'Volume 15: Parfait Manual' ebook. Could you tell me more?" },
+  { id: "book-16", title: "Volume 16: Fruit, Seed n' Nut Granola", image: "/images/Volume-16_Fruit-Seed-n-Nut-Granola.png", message: "Hi! I'm interested in 'Volume 16: Fruit, Seed n' Nut Granola' ebook. Could you tell me more?" },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -529,17 +514,12 @@ function BookCard({ book, index }) {
       style={{ animationDelay: `${index * 0.55}s` }}
       title={`Enquire about: ${book.title}`}
     >
-      {/* CSS-drawn book cover */}
-      <div className="bc-book-cover" style={{ background: book.gradient }}>
-        <div className="bc-book-spine" style={{ background: book.spine }} />
-        <div className="bc-book-cover-content" style={{ color: book.textColor }}>
-          <div className="bc-book-deco" style={{ borderColor: book.accent + "66" }} />
-          <div className="bc-book-cover-title">{book.title}</div>
-          <div className="bc-book-cover-subtitle" style={{ color: book.accent }}>{book.subtitle}</div>
-          <div className="bc-book-cover-line" style={{ background: book.accent + "88" }} />
+      <div className="bc-book-cover">
+        <img src={book.image} alt={book.title} className="bc-book-image" />
+        <div className="bc-book-overlay">
+          <div className="bc-book-title-overlay">{book.title}</div>
         </div>
       </div>
-      {/* CTA */}
       <div className="bc-book-cta">
         <span className="bc-wa-icon"><IconWhatsApp /></span>
         Enquire
@@ -552,11 +532,27 @@ function BooksSection() {
   return (
     <div className="bc-books-section">
       <div className="bc-books-header">
-        <span className="bc-books-label">📖 From the Author's Kitchen</span>
-        <span className="bc-books-sub">Tap a book to enquire via WhatsApp</span>
+        <span className="bc-books-label bc-handwriting-title">📖 From the Author's Kitchen</span>
+        <p className="bc-books-sub-large">Tap a book to enquire via WhatsApp</p>
       </div>
       <div className="bc-books-scroll">
-        {BOOKS.map((book, i) => <BookCard key={book.id} book={book} index={i} />)}
+        {BOOKS.slice(0, 3).map((book, i) => <BookCard key={book.id} book={book} index={i} />)}
+      </div>
+    </div>
+  );
+}
+
+function BooksTab() {
+  return (
+    <div className="bc-books-tab">
+      <div className="bc-books-header">
+        <h2 className="bc-books-title bc-handwriting-title">Our Recipe eBooks</h2>
+        <p className="bc-books-sub-large">Browse our full collection of detailed step-by-step recipe ebooks and enquire via WhatsApp</p>
+      </div>
+      <div className="bc-books-grid">
+        {BOOKS.map((book, i) => (
+          <BookCard key={book.id} book={book} index={i} />
+        ))}
       </div>
     </div>
   );
@@ -668,18 +664,23 @@ export default function BakingConverter() {
               ))}
             </div>
 
-            <div className="bc-hint">Tap any result to copy · {ing.gramsPerCup}g / cup</div>
+            <div className="bc-hint">Tap any result to copy</div>
 
             {/* ── Book Ads ── */}
             <BooksSection />
           </>
         )}
 
+        {/* ── BOOKS TAB ── */}
+        {tab === "books" && <BooksTab />}
+
         {/* ── CUSTOM TAB ── */}
         {tab === "custom" && (
           <>
             <div className="bc-custom-card">
-              <div className="bc-custom-title">Add Custom Ingredient</div>
+              <div className="bc-results-header">
+                <span className="bc-handwriting-title">Add Custom Ingredient</span>
+              </div>
               <div className="bc-custom-fields">
                 <div className="bc-field">
                   <label className="bc-label">Ingredient Name</label>
@@ -699,12 +700,13 @@ export default function BakingConverter() {
                     placeholder="e.g. 115" className="bc-input"
                     onKeyDown={e => e.key === "Enter" && addCustom()}
                   />
-                  <div className="bc-note">Weigh 1 level cup on a scale to find this value.</div>
+                  <div className="bc-trigger-meta bc-note">Weigh 1 level cup on a scale to find this value.</div>
                 </div>
                 {err && <div className="bc-err">{err}</div>}
                 <button id="add-ingredient-btn" onClick={addCustom} className="bc-add-btn">
                   <IconPlus /> ADD INGREDIENT
                 </button>
+                <p className="bc-custom-footer-note">Tap a book to enquire via WhatsApp</p>
               </div>
             </div>
 
@@ -743,6 +745,10 @@ export default function BakingConverter() {
         <button onClick={() => setTab("convert")} className={`bc-tab ${tab === "convert" ? "active" : ""}`}>
           <IconConvert />
           <span>Converter</span>
+        </button>
+        <button onClick={() => setTab("books")} className={`bc-tab ${tab === "books" ? "active" : ""}`}>
+          <span className="bc-tab-icon">📖</span>
+          <span>Books</span>
         </button>
         <button onClick={() => setTab("custom")} className={`bc-tab ${tab === "custom" ? "active" : ""}`}>
           <IconEdit />
