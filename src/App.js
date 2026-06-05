@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import "./App.css";
 import logo from "./logo.png";
 
+// Vercel Deployment fixes
+
 // ─────────────────────────────────────────────────────────────────────────────
 // INGREDIENT DATA
 // ─────────────────────────────────────────────────────────────────────────────
