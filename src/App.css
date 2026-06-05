@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
 
+// Vercel Deployment fixes
+
 :root {
   /* Color Palette */
   --color-gold: #D4AF37;
