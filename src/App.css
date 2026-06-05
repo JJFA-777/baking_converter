@@ -523,14 +523,6 @@ body {
   z-index: 10;
 }
 
-@media (max-width: 768px) {
-  .bc-ebook-cta {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* ─── Animations ────────────────────────────────────────────────────────────── */
 @keyframes bc-slide-up {
   from { transform: translateY(100%); }
   to { transform: translateY(0); }

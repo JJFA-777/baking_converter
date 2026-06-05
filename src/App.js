@@ -661,7 +661,7 @@ export default function BakingConverter() {
               <h3 className="bc-custom-title" style={{ fontSize: '20px', marginBottom: '8px' }}>How it works</h3>
               <p className="bc-custom-footer-note" style={{ textAlign: 'left', margin: '0 24px 24px', lineHeight: '1.5' }}>
                 This converter helps you quickly translate baking measurements between different units like grams, cups, and ounces.
-                Simply select from one from 170+ ingredients, enter the amount and unit you have, and we'll show you the equivalent in other common units.
+                Simply select your ingredient, enter the amount and unit you have, and we'll show you the equivalent in other common units.
                 Perfect for ensuring precision in your recipes!
               </p>
             </div>
