@@ -426,6 +426,9 @@ body {
   font-size: 12px;
   color: var(--color-gold-dark);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .bc-del-btn {
@@ -435,32 +438,20 @@ body {
   border-radius: 8px;
   color: #CC4444;
   cursor: pointer;
-}
-
-/* ─── Book Cards ───────────────────────────────────────────────────────────── */
-.bc-books-section { padding: 32px 0; border-top: 1px solid var(--color-border); }
-.bc-books-header { text-align: center; margin-bottom: 20px; }
-.bc-books-label { font-family: var(--font-serif); font-size: 28px; font-weight: 700; }
-.bc-books-sub { font-size: 12px; font-weight: 600; letter-spacing: 0.4em; color: var(--color-gold); text-transform: uppercase; }
-
-.bc-books-scroll {
   display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  padding: 0 24px 24px;
-  scrollbar-width: none;
+  align-items: center;
 }
-.bc-books-scroll::-webkit-scrollbar { display: none; }
 
-.bc-book-card {
+/* ─── Ebook Cards ──────────────────────────────────────────────────────────── */
+.bc-ebook-card {
   flex: 0 0 140px;
   text-decoration: none;
   transition: var(--transition-smooth);
   position: relative;
 }
-.bc-book-card:hover { transform: translateY(-5px); }
+.bc-ebook-card:hover { transform: translateY(-5px); }
 
-.bc-book-cover {
+.bc-ebook-cover {
   height: 200px;
   border-radius: 4px 12px 12px 4px;
   position: relative;
@@ -468,13 +459,13 @@ body {
   overflow: hidden;
 }
 
-.bc-book-image {
+.bc-ebook-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.bc-book-overlay {
+.bc-ebook-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
@@ -484,7 +475,7 @@ body {
   pointer-events: none;
 }
 
-.bc-book-title-overlay {
+.bc-ebook-title-overlay {
   color: white;
   font-family: var(--font-serif);
   font-size: 14px;
@@ -493,7 +484,23 @@ body {
   width: 100%;
 }
 
-.bc-book-cta {
+.bc-ebook-enquire-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: white;
+  color: var(--color-gold);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px var(--color-shadow-heavy);
+  z-index: 5;
+}
+
+.bc-ebook-cta {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -516,13 +523,8 @@ body {
   z-index: 10;
 }
 
-.bc-book-card:hover .bc-book-cta {
-  transform: translateY(0);
-  opacity: 1;
-}
-
 @media (max-width: 768px) {
-  .bc-book-cta {
+  .bc-ebook-cta {
     transform: translateY(0);
     opacity: 1;
   }
@@ -546,14 +548,29 @@ body {
   font-weight: 500;
 }
 
-.bc-books-grid {
+/* ─── Ebooks Section & Grid ────────────────────────────────────────────────── */
+.bc-ebooks-section { padding: 32px 0; border-top: 1px solid var(--color-border); }
+.bc-ebooks-header { text-align: center; margin-bottom: 20px; }
+.bc-ebooks-label { font-family: var(--font-serif); font-size: 28px; font-weight: 700; }
+.bc-ebooks-sub-large { font-size: 12px; font-weight: 600; letter-spacing: 0.4em; color: var(--color-gold); text-transform: uppercase; }
+
+.bc-ebooks-scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 0 24px 24px;
+  scrollbar-width: none;
+}
+.bc-ebooks-scroll::-webkit-scrollbar { display: none; }
+
+.bc-ebooks-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 20px;
   padding: 20px 24px 120px;
 }
 
-.bc-books-grid-item {
+.bc-ebooks-grid-item {
   display: flex;
   flex-direction: column;
 }
@@ -654,13 +671,14 @@ body {
   margin-right: 4px;
 }
 
-.bc-books-sub-large {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+.bc-ebooks-hint-more {
+  text-align: center;
+  font-size: 12px;
   color: var(--color-gold);
-  text-transform: uppercase;
+  font-weight: 600;
   margin-top: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .bc-note {

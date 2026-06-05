@@ -259,8 +259,8 @@ const DEFAULT_INGREDIENTS = INGREDIENT_GROUPS.flatMap(g => g.items);
 // ─────────────────────────────────────────────────────────────────────────────
 // UNITS
 // ─────────────────────────────────────────────────────────────────────────────
-const UNITS = ["grams", "cups", "ounces", "tbsp", "tsp"];
-const UNIT_LABELS = { grams: "g", cups: "cup", ounces: "oz", tbsp: "tbsp", tsp: "tsp" };
+const UNITS = ["grams", "cups", "ounces", "tablespoon", "teaspoon"];
+const UNIT_LABELS = { grams: "g", cups: "cup", ounces: "oz", tablespoon: "tbsp", teaspoon: "tsp" };
 
 // ─────────────────────────────────────────────────────────────────────────────
 // HELPERS
@@ -272,8 +272,8 @@ function toGrams(value, unit, gpc) {
     case "grams":  return v;
     case "cups":   return v * gpc;
     case "ounces": return v * 28.3495;
-    case "tbsp":   return v * (gpc / 16);
-    case "tsp":    return v * (gpc / 48);
+    case "tablespoon": return v * (gpc / 16);
+    case "teaspoon":    return v * (gpc / 48);
     default:       return v;
   }
 }
@@ -282,18 +282,54 @@ function fromGrams(g, unit, gpc) {
     case "grams":  return g;
     case "cups":   return g / gpc;
     case "ounces": return g / 28.3495;
-    case "tbsp":   return g / (gpc / 16);
-    case "tsp":    return g / (gpc / 48);
+    case "tablespoon": return g / (gpc / 16);
+    case "teaspoon":    return g / (gpc / 48);
     default:       return g;
   }
 }
-function fmt(n) {
-  if (isNaN(n) || !isFinite(n)) return "—";
-  if (n < 0.01) return n.toExponential(2);
-  if (n < 1)    return n.toFixed(3);
-  if (n < 10)   return n.toFixed(2);
-  if (n < 100)  return n.toFixed(1);
-  return Math.round(n).toString();
+function formatValue(value, unit) {
+  if (isNaN(value) || !isFinite(value)) return "—";
+
+  if (unit === "ounces") {
+    return value.toFixed(1);
+  }
+
+  if (unit === "grams") {
+    if (value < 0.01) return value.toExponential(2);
+    if (value < 1)    return value.toFixed(3);
+    if (value < 10)   return value.toFixed(2);
+    if (value < 100)  return value.toFixed(1);
+    return Math.round(value).toString();
+  }
+
+  // For cups, tbsp, tsp - use fractions
+  const fractions = [
+    { val: 0.75, str: "3/4" },
+    { val: 0.6667, str: "2/3" },
+    { val: 0.5, str: "1/2" },
+    { val: 0.3333, str: "1/3" },
+    { val: 0.25, str: "1/4" },
+    { val: 0.125, str: "1/8" },
+  ];
+
+  // We use a precision of 24ths to accommodate both 8ths and 3rds
+  const n = Math.round(value * 24) / 24;
+  if (n === 0) return "0";
+  if (Number.isInteger(n)) return n.toString();
+
+  const whole = Math.floor(n);
+  let remainder = n - whole;
+  const parts = [];
+
+  for (const f of fractions) {
+    if (remainder >= f.val - 0.001) {
+      parts.push(f.str);
+      remainder -= f.val;
+    }
+  }
+
+  const fractionStr = parts.join("+");
+  return whole > 0 ? `${whole}+${fractionStr}` : fractionStr;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -312,23 +348,23 @@ function saveCustom(list) {
 // CONFIG & ADS
 // ─────────────────────────────────────────────────────────────────────────────
 const WA_NUMBER = "+233500880529";
-const BOOKS = [
-  { id: "book-1", title: "Volume 1: Cakes", image: "/images/Volume-1_Cakes.png", message: "Hi! I'm interested in 'Volume 1: Cakes' ebook. Could you tell me more?" },
-  { id: "book-2", title: "Volume 2: Quick Breads", image: "/images/Volume-2_Quick-Breads.png", message: "Hi! I'm interested in 'Volume 2: Quick Breads' ebook. Could you tell me more?" },
-  { id: "book-3", title: "Volume 3: Cake Fillings Encyclopaedia", image: "/images/Volume-3_Cake-Fillings-Encyclopaedia.png", message: "Hi! I'm interested in 'Volume 3: Cake Fillings Encyclopaedia' ebook. Could you tell me more?" },
-  { id: "book-4", title: "Volume 4: Ice Cream Making", image: "/images/Volume-4_Ice-Cream-Making.png", message: "Hi! I'm interested in 'Volume 4: Ice Cream Making' ebook. Could you tell me more?" },
-  { id: "book-5", title: "Volume 5: Mastering Cake Business", image: "/images/Volume-5_Mastering-Cake-Business.jpeg", message: "Hi! I'm interested in 'Volume 5: Mastering Cake Business' ebook. Could you tell me more?" },
-  { id: "book-6", title: "Volume 6: Dessert Masters", image: "/images/Volume-6_Dessert-Masters.png", message: "Hi! I'm interested in 'Volume 6: Dessert Masters' ebook. Could you tell me more?" },
-  { id: "book-7", title: "Volume 7: Homemade Bread Manual", image: "/images/Volume-7_Homemade_Bread_Manual.jpg", message: "Hi! I'm interested in 'Volume 7: Homemade Bread Manual' ebook. Could you tell me more?" },
-  { id: "book-8", title: "Volume 8: Perfect Donut Recipe", image: "/images/Volume-8_Perfect-Donut-Recipe.jpg", message: "Hi! I'm interested in 'Volume 8: Perfect Donut Recipe' ebook. Could you tell me more?" },
-  { id: "book-9", title: "Volume 9: Yoghurt Making", image: "/images/Volume-9_Yoghurt-Making.png", message: "Hi! I'm interested in 'Volume 9: Yoghurt Making' ebook. Could you tell me more?" },
-  { id: "book-10", title: "Volume 10: Tropical Climate Fondant Recipe", image: "/images/Volume-10_Tropical-Climate-Fondant-Recipe.png", message: "Hi! I'm interested in 'Volume 10: Tropical Climate Fondant Recipe' ebook. Could you tell me more?" },
-  { id: "book-11", title: "Volume 11: Scrumptious Smoothies", image: "/images/Volume-11_Scrumptious Smoothies.png", message: "Hi! I'm interested in 'Volume 11: Scrumptious Smoothies' ebook. Could you tell me more?" },
-  { id: "book-12", title: "Volume 12: Homemade Chocolate Making", image: "/images/Volume-12_Homemade-Chocolate Making.jpg", message: "Hi! I'm interested in 'Volume 12: Homemade Chocolate Making' ebook. Could you tell me more?" },
-  { id: "book-13", title: "Volume 13: Sugar-Free Cakes", image: "/images/Volume-13_Sugar-Free-Cakes.png", message: "Hi! I'm interested in 'Volume 13: Sugar-Free Cakes' ebook. Could you tell me more?" },
-  { id: "book-14", title: "Volume 14: Eat Desserts n' Still Lose Weight", image: "/images/Volume-14_Eat-Desserts-n-Still-Lose-Weight.png", message: "Hi! I'm interested in 'Volume 14: Eat Desserts n' Still Lose Weight' ebook. Could you tell me more?" },
-  { id: "book-15", title: "Volume 15: Parfait Manual", image: "/images/Volume-15_Parfait-Mansal.png", message: "Hi! I'm interested in 'Volume 15: Parfait Manual' ebook. Could you tell me more?" },
-  { id: "book-16", title: "Volume 16: Fruit, Seed n' Nut Granola", image: "/images/Volume-16_Fruit-Seed-n-Nut-Granola.png", message: "Hi! I'm interested in 'Volume 16: Fruit, Seed n' Nut Granola' ebook. Could you tell me more?" },
+const EBOOKS = [
+  { id: "ebook-1", title: "Volume 1: Cakes", image: "/images/Volume-1_Cakes.png", message: "Hi! I'm interested in 'Volume 1: Cakes' ebook. Could you tell me more?" },
+  { id: "ebook-2", title: "Volume 2: Quick Breads", image: "/images/Volume-2_Quick-Breads.png", message: "Hi! I'm interested in 'Volume 2: Quick Breads' ebook. Could you tell me more?" },
+  { id: "ebook-3", title: "Volume 3: Cake Fillings Encyclopaedia", image: "/images/Volume-3_Cake-Fillings-Encyclopaedia.png", message: "Hi! I'm interested in 'Volume 3: Cake Fillings Encyclopaedia' ebook. Could you tell me more?" },
+  { id: "ebook-4", title: "Volume 4: Ice Cream Making", image: "/images/Volume-4_Ice-Cream-Making.png", message: "Hi! I'm interested in 'Volume 4: Ice Cream Making' ebook. Could you tell me more?" },
+  { id: "ebook-5", title: "Volume 5: Mastering Cake Business", image: "/images/Volume-5_Mastering-Cake-Business.jpeg", message: "Hi! I'm interested in 'Volume 5: Mastering Cake Business' ebook. Could you tell me more?" },
+  { id: "ebook-6", title: "Volume 6: Dessert Masters", image: "/images/Volume-6_Dessert-Masters.png", message: "Hi! I'm interested in 'Volume 6: Dessert Masters' ebook. Could you tell me more?" },
+  { id: "ebook-7", title: "Volume 7: Homemade Bread Manual", image: "/images/Volume-7_Homemade_Bread_Manual.jpg", message: "Hi! I'm interested in 'Volume 7: Homemade Bread Manual' ebook. Could you tell me more?" },
+  { id: "ebook-8", title: "Volume 8: Perfect Donut Recipe", image: "/images/Volume-8_Perfect-Donut-Recipe.jpg", message: "Hi! I'm interested in 'Volume 8: Perfect Donut Recipe' ebook. Could you tell me more?" },
+  { id: "ebook-9", title: "Volume 9: Yoghurt Making", image: "/images/Volume-9_Yoghurt-Making.png", message: "Hi! I'm interested in 'Volume 9: Yoghurt Making' ebook. Could you tell me more?" },
+  { id: "ebook-10", title: "Volume 10: Tropical Climate Fondant Recipe", image: "/images/Volume-10_Tropical-Climate-Fondant-Recipe.png", message: "Hi! I'm interested in 'Volume 10: Tropical Climate Fondant Recipe' ebook. Could you tell me more?" },
+  { id: "ebook-11", title: "Volume 11: Scrumptious Smoothies", image: "/images/Volume-11_Scrumptious Smoothies.png", message: "Hi! I'm interested in 'Volume 11: Scrumptious Smoothies' ebook. Could you tell me more?" },
+  { id: "ebook-12", title: "Volume 12: Homemade Chocolate Making", image: "/images/Volume-12_Homemade-Chocolate Making.jpg", message: "Hi! I'm interested in 'Volume 12: Homemade Chocolate Making' ebook. Could you tell me more?" },
+  { id: "ebook-13", title: "Volume 13: Sugar-Free Cakes", image: "/images/Volume-13_Sugar-Free-Cakes.png", message: "Hi! I'm interested in 'Volume 13: Sugar-Free Cakes' ebook. Could you tell me more?" },
+  { id: "ebook-14", title: "Volume 14: Eat Desserts n' Still Lose Weight", image: "/images/Volume-14_Eat-Desserts-n-Still-Lose-Weight.png", message: "Hi! I'm interested in 'Volume 14: Eat Desserts n' Still Lose Weight' ebook. Could you tell me more?" },
+  { id: "ebook-15", title: "Volume 15: Parfait Manual", image: "/images/Volume-15_Parfait-Mansal.png", message: "Hi! I'm interested in 'Volume 15: Parfait Manual' ebook. Could you tell me more?" },
+  { id: "ebook-16", title: "Volume 16: Fruit, Seed n' Nut Granola", image: "/images/Volume-16_Fruit-Seed-n-Nut-Granola.png", message: "Hi! I'm interested in 'Volume 16: Fruit, Seed n' Nut Granola' ebook. Could you tell me more?" },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -367,13 +403,13 @@ const IconTrash = () => (
 );
 
 const IconArrow = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
     <polyline points="9 18 15 12 9 6"/>
   </svg>
 );
 
 const IconSearch = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
   </svg>
 );
@@ -399,7 +435,7 @@ function IngredientPicker({ value, onChange, customIngredients }) {
   const searchRef           = useRef(null);
 
   const allItems  = [...DEFAULT_INGREDIENTS, ...customIngredients.map(i => ({ ...i, groupName: "My Custom", icon: "⭐" }))];
-  const selected  = allItems.find(i => i.id === value) || DEFAULT_INGREDIENTS[0];
+  const selected  = allItems.find(i => i.id === value);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -423,10 +459,10 @@ function IngredientPicker({ value, onChange, customIngredients }) {
   return (
     <>
       <button className="bc-picker-trigger" onClick={() => setOpen(true)} id="ingredient-picker-btn">
-        <span className="bc-trigger-icon">{selected.icon || "⭐"}</span>
+        <span className="bc-trigger-icon">{selected ? selected.icon : "⭐"}</span>
         <div className="bc-trigger-info">
-          <span className="bc-trigger-name">{selected.name}</span>
-          <span className="bc-trigger-meta">{selected.groupName} · {selected.gramsPerCup}g / cup</span>
+          <span className="bc-trigger-name">{selected ? selected.name : "Choose from 170+ ingredients"}</span>
+          <span className="bc-trigger-meta">{selected ? `${selected.gramsPerCup}g / cup` : ""}</span>
         </div>
         <span className="bc-trigger-chevron"><IconChevron /></span>
       </button>
@@ -500,7 +536,7 @@ function IngredientPicker({ value, onChange, customIngredients }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // BOOK AD CARD
 // ─────────────────────────────────────────────────────────────────────────────
-function BookCard({ book, index }) {
+function EbookCard({ book, index }) {
   const waLink = WA_NUMBER
     ? `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(book.message)}`
     : "#";
@@ -510,17 +546,18 @@ function BookCard({ book, index }) {
       href={waLink}
       target="_blank"
       rel="noopener noreferrer"
-      className="bc-book-card"
+      className="bc-ebook-card"
       style={{ animationDelay: `${index * 0.55}s` }}
       title={`Enquire about: ${book.title}`}
     >
-      <div className="bc-book-cover">
-        <img src={book.image} alt={book.title} className="bc-book-image" />
-        <div className="bc-book-overlay">
-          <div className="bc-book-title-overlay">{book.title}</div>
+      <div className="bc-ebook-cover">
+        <img src={book.image} alt={book.title} className="bc-ebook-image" />
+        <div className="bc-ebook-overlay">
+          <div className="bc-ebook-title-overlay">{book.title}</div>
         </div>
+        <div className="bc-ebook-enquire-badge"><IconWhatsApp /></div>
       </div>
-      <div className="bc-book-cta">
+      <div className="bc-ebook-cta">
         <span className="bc-wa-icon"><IconWhatsApp /></span>
         Enquire
       </div>
@@ -528,30 +565,31 @@ function BookCard({ book, index }) {
   );
 }
 
-function BooksSection() {
+function EbooksSection() {
   return (
-    <div className="bc-books-section">
-      <div className="bc-books-header">
-        <span className="bc-books-label bc-handwriting-title">📖 From the Author's Kitchen</span>
-        <p className="bc-books-sub-large">Tap a book to enquire via WhatsApp</p>
+    <div className="bc-ebooks-section">
+      <div className="bc-ebooks-header">
+        <span className="bc-ebooks-label bc-handwriting-title">📖 From the Author's Kitchen</span>
+        <p className="bc-ebooks-sub-large">Tap an ebook to enquire via WhatsApp</p>
       </div>
-      <div className="bc-books-scroll">
-        {BOOKS.slice(0, 3).map((book, i) => <BookCard key={book.id} book={book} index={i} />)}
+      <div className="bc-ebooks-scroll">
+        {EBOOKS.slice(0, 3).map((book, i) => <EbookCard key={book.id} book={book} index={i} />)}
       </div>
+      <p className="bc-ebooks-hint-more">See full collection in Ebooks tab</p>
     </div>
   );
 }
 
-function BooksTab() {
+function EbooksTab() {
   return (
-    <div className="bc-books-tab">
-      <div className="bc-books-header">
-        <h2 className="bc-books-title bc-handwriting-title">Our Recipe eBooks</h2>
-        <p className="bc-books-sub-large">Browse our full collection of detailed step-by-step recipe ebooks and enquire via WhatsApp</p>
+    <div className="bc-ebooks-tab">
+      <div className="bc-ebooks-header">
+        <h2 className="bc-ebooks-title bc-handwriting-title">Our Recipe eBooks</h2>
+        <p className="bc-ebooks-sub-large">Browse our full collection of detailed step-by-step recipe ebooks and click to enquire via WhatsApp</p>
       </div>
-      <div className="bc-books-grid">
-        {BOOKS.map((book, i) => (
-          <BookCard key={book.id} book={book} index={i} />
+      <div className="bc-ebooks-grid">
+        {EBOOKS.map((book, i) => (
+          <EbookCard key={book.id} book={book} index={i} />
         ))}
       </div>
     </div>
@@ -565,19 +603,19 @@ export default function BakingConverter() {
   const [custom, setCustom] = useState(loadCustom);
   const all = [...DEFAULT_INGREDIENTS, ...custom];
 
-  const [selId, setSelId]       = useState("all_purpose_flour");
-  const [fromUnit, setFromUnit] = useState("grams");
-  const [val, setVal]           = useState("100");
+  const [selId, setSelId]       = useState("");
+  const [fromUnit, setFromUnit] = useState("");
+  const [val, setVal]           = useState("");
   const [tab, setTab]           = useState("convert");
   const [newName, setNewName]   = useState("");
   const [newGpc, setNewGpc]     = useState("");
   const [err, setErr]           = useState("");
   const [copied, setCopied]     = useState("");
 
-  const ing     = all.find(i => i.id === selId) || all[0];
-  const baseG   = toGrams(val, fromUnit, ing.gramsPerCup);
+  const ing     = all.find(i => i.id === selId);
+  const baseG   = ing ? toGrams(val, fromUnit, ing.gramsPerCup) : 0;
   const results = UNITS.filter(u => u !== fromUnit).map(u => ({
-    unit: u, label: UNIT_LABELS[u], value: fmt(fromGrams(baseG, u, ing.gramsPerCup)),
+    unit: u, label: UNIT_LABELS[u], value: ing ? formatValue(fromGrams(baseG, u, ing.gramsPerCup), u) : "—",
   }));
 
   function addCustom() {
@@ -594,7 +632,7 @@ export default function BakingConverter() {
   function delCustom(id) {
     const next = custom.filter(i => i.id !== id);
     setCustom(next); saveCustom(next);
-    if (selId === id) setSelId("all_purpose_flour");
+    if (selId === id) setSelId("");
   }
 
   function copyResult(v, u) {
@@ -619,8 +657,17 @@ export default function BakingConverter() {
         {/* ── CONVERT TAB ── */}
         {tab === "convert" && (
           <>
+            <div className="bc-custom-card bc-how-it-works">
+              <h3 className="bc-custom-title" style={{ fontSize: '20px', marginBottom: '8px' }}>How it works</h3>
+              <p className="bc-custom-footer-note" style={{ textAlign: 'left', margin: '0 24px 24px', lineHeight: '1.5' }}>
+                This converter helps you quickly translate baking measurements between different units like grams, cups, and ounces.
+                Simply select from one from 170+ ingredients, enter the amount and unit you have, and we'll show you the equivalent in other common units.
+                Perfect for ensuring precision in your recipes!
+              </p>
+            </div>
+
             <div className="bc-field">
-              <label className="bc-label">Ingredient</label>
+              <label className="bc-label">Choose an ingredient</label>
               <IngredientPicker value={selId} onChange={setSelId} customIngredients={custom} />
             </div>
 
@@ -631,12 +678,13 @@ export default function BakingConverter() {
                   id="amount-input"
                   type="number" min="0" step="any"
                   value={val} onChange={e => setVal(e.target.value)}
-                  className="bc-input" placeholder="0"
+                  className="bc-input" placeholder="Type amount"
                 />
               </div>
               <div className="bc-field">
                 <label className="bc-label">From Unit</label>
                 <select id="unit-select" value={fromUnit} onChange={e => setFromUnit(e.target.value)} className="bc-select">
+                  <option value="" disabled>Choose unit</option>
                   {UNITS.map(u => <option key={u} value={u}>{UNIT_LABELS[u]} — {u}</option>)}
                 </select>
               </div>
@@ -645,7 +693,7 @@ export default function BakingConverter() {
             <div className="bc-results-card">
               <div className="bc-results-header">
                 <IconScale />
-                <span>{val || "0"} {UNIT_LABELS[fromUnit]} of {ing.name}</span>
+                <span>{val || "0"} {UNIT_LABELS[fromUnit] || ""} of {ing?.name || ""}</span>
               </div>
               {results.map(r => (
                 <div
@@ -667,16 +715,23 @@ export default function BakingConverter() {
             <div className="bc-hint">Tap any result to copy</div>
 
             {/* ── Book Ads ── */}
-            <BooksSection />
+            <EbooksSection />
           </>
         )}
 
-        {/* ── BOOKS TAB ── */}
-        {tab === "books" && <BooksTab />}
+        {/* ── EBOOKS TAB ── */}
+        {tab === "books" && <EbooksTab />}
 
         {/* ── CUSTOM TAB ── */}
         {tab === "custom" && (
           <>
+            <div className="bc-custom-card bc-how-it-works">
+              <h3 className="bc-custom-title" style={{ fontSize: '20px', marginBottom: '8px' }}>How to add custom ingredients</h3>
+              <p className="bc-custom-footer-note" style={{ textAlign: 'left', margin: '0 24px 24px', lineHeight: '1.5' }}>
+                To add your own ingredients, weigh 1 level cup on a kitchen scale and enter the weight in the 'Grams per Cup' field. This ensures your custom items are converted with the same precision as our standard list.
+              </p>
+            </div>
+
             <div className="bc-custom-card">
               <div className="bc-results-header">
                 <span className="bc-handwriting-title">Add Custom Ingredient</span>
@@ -706,7 +761,7 @@ export default function BakingConverter() {
                 <button id="add-ingredient-btn" onClick={addCustom} className="bc-add-btn">
                   <IconPlus /> ADD INGREDIENT
                 </button>
-                <p className="bc-custom-footer-note">Tap a book to enquire via WhatsApp</p>
+                <p className="bc-custom-footer-note">Tap an ebook to enquire via WhatsApp</p>
               </div>
             </div>
 
@@ -748,7 +803,7 @@ export default function BakingConverter() {
         </button>
         <button onClick={() => setTab("books")} className={`bc-tab ${tab === "books" ? "active" : ""}`}>
           <span className="bc-tab-icon">📖</span>
-          <span>Books</span>
+          <span>Ebooks</span>
         </button>
         <button onClick={() => setTab("custom")} className={`bc-tab ${tab === "custom" ? "active" : ""}`}>
           <IconEdit />
