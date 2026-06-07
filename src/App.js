@@ -137,9 +137,13 @@ const INGREDIENT_GROUPS = [
     emoji: "🍓",
     items: [
       { id: "strawberries_sliced",   name: "Strawberries (fresh, sliced)", gramsPerCup: 166, icon: "🍓" },
+      { id: "strawberries_frozen",   name: "Strawberries (frozen)",       gramsPerCup: 160, icon: "🍓" },
       { id: "blueberries_fresh",     name: "Blueberries (fresh or frozen)", gramsPerCup: 148, icon: "🫐" },
       { id: "blueberries_dried",     name: "Blueberries (dried)",         gramsPerCup: 170, icon: "🫐" },
       { id: "raspberries_fresh",     name: "Raspberries (fresh)",         gramsPerCup: 123, icon: "🍓" },
+      { id: "raspberries_frozen",    name: "Raspberries (frozen)",        gramsPerCup: 120, icon: "🍓" },
+      { id: "mango_fresh",           name: "Mango (fresh, diced)",        gramsPerCup: 165, icon: "🥭" },
+      { id: "mango_dried",           name: "Mango (dried, diced)",        gramsPerCup: 140, icon: "🥭" },
       { id: "cherries_fresh",        name: "Cherries (fresh, pitted, chopped)", gramsPerCup: 155, icon: "🍒" },
       { id: "cherries_frozen",       name: "Cherries (frozen)",           gramsPerCup: 155, icon: "🍒" },
       { id: "cherry_concentrate",    name: "Cherry Concentrate",          gramsPerCup: 340, icon: "🍒" },
@@ -202,7 +206,8 @@ const INGREDIENT_GROUPS = [
       { id: "wheat_bran",            name: "Wheat Bran",                  gramsPerCup: 58,  icon: "🌾" },
       { id: "wheat_germ",            name: "Wheat Germ",                  gramsPerCup: 115, icon: "🌾" },
       { id: "wheat_berries",         name: "Wheat Berries (red)",         gramsPerCup: 195, icon: "🌾" },
-      { id: "granola",               name: "Granola",                     gramsPerCup: 113, icon: "🥣" },
+      { id: "granola_plain",          name: "Granola (plain)",             gramsPerCup: 113, icon: "🥣" },
+      { id: "granola_fruit_seed",      name: "Granola (fruit & seed)",       gramsPerCup: 120, icon: "🍇" },
       { id: "breadcrumbs_dried",     name: "Breadcrumbs (dried / panko)", gramsPerCup: 120, icon: "🍞" },
       { id: "breadcrumbs_fresh",     name: "Breadcrumbs (fresh)",         gramsPerCup: 60,  icon: "🍞" },
       { id: "graham_cracker_crumbs", name: "Graham Cracker Crumbs",       gramsPerCup: 100, icon: "🍪" },
@@ -217,10 +222,12 @@ const INGREDIENT_GROUPS = [
     items: [
       { id: "cocoa_powder",          name: "Cocoa Powder",                gramsPerCup: 85,  icon: "🍫" },
       { id: "cocoa_dutch",           name: "Dutch-Process Cocoa",         gramsPerCup: 82,  icon: "🍫" },
+      { id: "cocoa_liquor",          name: "Cocoa Liquor (unsweetened)",  gramsPerCup: 227, icon: "🍫" },
+      { id: "cacao_beans",           name: "Cacao Beans (whole)",         gramsPerCup: 170, icon: "🫘" },
+      { id: "cacao_nibs",            name: "Cacao Nibs",                  gramsPerCup: 120, icon: "🫘" },
       { id: "chocolate_chips",       name: "Chocolate Chips (dark/semi)", gramsPerCup: 170, icon: "🍫" },
       { id: "white_choc_chips",      name: "White Chocolate Chips",       gramsPerCup: 170, icon: "🤍" },
       { id: "chocolate_chopped",     name: "Chocolate (roughly chopped)", gramsPerCup: 170, icon: "🍫" },
-      { id: "cacao_nibs",            name: "Cacao Nibs",                  gramsPerCup: 120, icon: "🫘" },
     ],
   },
   {
@@ -680,8 +687,8 @@ export default function BakingConverter() {
             <div className="bc-custom-card bc-how-it-works">
               <h3 className="bc-custom-title" style={{ fontSize: '20px', marginBottom: '8px' }}>How it works</h3>
               <p className="bc-custom-footer-note" style={{ textAlign: 'left', margin: '0 24px 24px', lineHeight: '1.5' }}>
-                This converter helps you quickly translate baking measurements between different units like grams, cups, and ounces.
-                Simply select from one from 170+ ingredients, enter the amount and unit you have, and we'll show you the equivalent in other common units.
+                This converter helps you quickly translate baking measurements between different units like grams, cups, ounces, tablespoons, and teaspoons.
+                Simply select one from 170+ ingredients, enter the amount and unit you have, and we'll show you the equivalent in other common units.
                 Perfect for ensuring precision in your recipes!
               </p>
             </div>

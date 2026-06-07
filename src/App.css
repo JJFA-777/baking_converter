@@ -301,7 +301,7 @@ body {
   inset: 0;
   background: var(--color-backdrop);
   backdrop-filter: blur(4px);
-  z-index: 500;
+  z-index: 1100;
   animation: bc-fade-in 0.3s ease;
 }
 
@@ -312,8 +312,9 @@ body {
   right: 0;
   background: var(--color-surface);
   border-radius: 32px 32px 0 0;
-  max-height: 80vh;
-  z-index: 501;
+  /* Leave room for the floating nav (68px pill + 24px bottom + breathing room) */
+  max-height: calc(100vh - 110px);
+  z-index: 1101;
   display: flex;
   flex-direction: column;
   animation: bc-slide-up 0.4s cubic-bezier(0.32, 1.15, 0.58, 1);
@@ -326,6 +327,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     border-radius: 32px 32px 0 0;
+    max-height: calc(100vh - 130px);
   }
 }
 
@@ -352,6 +354,8 @@ body {
   outline: none;
   font-size: 16px;
   font-family: var(--font-sans);
+  color: var(--color-text);
+  background: transparent;
 }
 
 .bc-panel-list {
@@ -386,7 +390,7 @@ body {
 .bc-panel-item.is-selected { background: var(--color-champagne); }
 
 .bc-panel-item-icon { font-size: 24px; }
-.bc-panel-item-name { flex: 1; font-size: 15px; font-weight: 500; }
+.bc-panel-item-name { flex: 1; font-size: 15px; font-weight: 500; color: var(--color-text); }
 .bc-panel-item-grams { font-size: 12px; color: var(--color-text-muted); }
 .bc-panel-item-check { color: var(--color-gold); font-weight: 700; }
 
@@ -701,9 +705,73 @@ body {
   padding: 20px 24px 120px;
 }
 
-.bc-ebooks-grid-item {
-  display: flex;
-  flex-direction: column;
+/* ─── Mobile Responsive ──────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .bc-body {
+    padding: 16px 14px 120px;
+  }
+
+  .bc-title-main { font-size: 28px; }
+  .bc-title-sub  { font-size: 10px; letter-spacing: 0.3em; }
+  .bc-logo       { height: 44px; }
+
+  .bc-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Ebook grid: 2 columns on mobile */
+  .bc-ebooks-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 12px 14px 120px;
+  }
+
+  /* Fix ebook card height for small screens */
+  .bc-ebook-cover {
+    height: 180px;
+  }
+
+  .bc-ebook-title-overlay {
+    font-size: 11px;
+    padding: 8px;
+  }
+
+  /* Always show CTA on mobile — no hover needed */
+  .bc-ebook-cta {
+    transform: translateY(0);
+    opacity: 1;
+    padding: 7px;
+    font-size: 10px;
+  }
+
+  /* Horizontal ebook scroll strip: show 2.3 cards at once */
+  .bc-ebooks-scroll {
+    padding: 0 14px 24px;
+    gap: 12px;
+  }
+  .bc-ebook-card {
+    flex: 0 0 130px;
+  }
+  .bc-ebooks-scroll .bc-ebook-cover {
+    height: 175px;
+  }
+
+  /* Shrink the panel-list bottom padding so it’s not cut off by the nav */
+  .bc-panel-list {
+    padding-bottom: 24px;
+  }
+
+  .bc-result-value { font-size: 22px; }
+  .bc-result-row   { padding: 16px 18px; }
+}
+
+@media (max-width: 360px) {
+  .bc-ebooks-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .bc-ebook-cover { height: 155px; }
 }
 
 /* ─── Missing Styles for MVP ─────────────────────────────────────────────────── */
