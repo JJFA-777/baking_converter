@@ -932,9 +932,10 @@ body {
 
 .bc-temp-guide-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 18px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  padding: 16px 20px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 16px;
@@ -946,29 +947,30 @@ body {
   border-color: var(--color-gold);
 }
 
-.bc-temp-guide-left {
+.bc-temp-guide-header-row {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
-  text-align: left;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .bc-temp-guide-title {
   font-weight: 700;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--color-text);
 }
 
 .bc-temp-guide-desc {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--color-text-muted);
-  line-height: 1.4;
+  line-height: 1.5;
+  text-align: left;
 }
 
 .bc-temp-guide-right {
   font-family: var(--font-serif);
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   color: var(--color-gold-dark);
   text-align: right;
   flex-shrink: 0;
@@ -988,6 +990,30 @@ body {
 
 .theme-dark .bc-temp-guide-row:hover {
   border-color: var(--color-gold-light);
+}
+
+@media (max-width: 480px) {
+  .bc-temp-guide-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .bc-temp-guide-right {
+    text-align: left;
+    margin-left: 0;
+    font-size: 13px;
+  }
+  .bc-temp-guide-row {
+    padding: 14px 16px;
+    gap: 6px;
+  }
+  .bc-temp-presets {
+    gap: 6px;
+  }
+  .bc-temp-preset-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 380px) {

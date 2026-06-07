@@ -818,11 +818,11 @@ function TemperatureTab({ tempVal, setTempVal, tempUnit, setTempUnit, copied, se
         <div className="bc-temp-guide-grid">
           {bakingZones.map((zone, idx) => (
             <div key={idx} className="bc-temp-guide-row">
-              <div className="bc-temp-guide-left">
+              <div className="bc-temp-guide-header-row">
                 <div className="bc-temp-guide-title">{zone.title}</div>
-                <div className="bc-temp-guide-desc">{zone.desc}</div>
+                <div className="bc-temp-guide-right">{zone.range}</div>
               </div>
-              <div className="bc-temp-guide-right">{zone.range}</div>
+              <div className="bc-temp-guide-desc">{zone.desc}</div>
             </div>
           ))}
         </div>
