@@ -1,7 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import "./App.css";
-import logo from "./logo.png";
 
+// ─────────────────────────────────────────────────────────────────────────────
+// ASSETS
+// ─────────────────────────────────────────────────────────────────────────────
+const LOGO = "/favicon.png";
+const LOGO_WHITE = "/images/logo-white.png";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // INGREDIENT DATA
@@ -612,6 +616,11 @@ export default function BakingConverter() {
   const [newGpc, setNewGpc]     = useState("");
   const [err, setErr]           = useState("");
   const [copied, setCopied]     = useState("");
+  const [theme, setTheme]       = useState(() => localStorage.getItem("bi_theme") || "standard");
+
+  useEffect(() => {
+    localStorage.setItem("bi_theme", theme);
+  }, [theme]);
 
   const ing     = all.find(i => i.id === selId);
   const baseG   = ing ? toGrams(val, fromUnit, ing.gramsPerCup) : 0;
@@ -642,11 +651,21 @@ export default function BakingConverter() {
   }
 
   return (
-    <div className="bc-wrap">
+    <div className={`bc-wrap theme-${theme}`}>
 
       {/* ── Header ── */}
       <header className="bc-header">
-        <img src={logo} alt="Baking Intelligence" className="bc-logo" />
+        <div className="bc-header-top">
+          <img src={theme === 'dark' ? LOGO_WHITE : LOGO} alt="Baking Intelligence" className="bc-logo" />
+          <div className="bc-theme-switcher">
+            <select value={theme} onChange={(e) => setTheme(e.target.value)} className="bc-theme-select">
+              <option value="luxe">Luxe</option>
+              <option value="standard">Warm</option>
+              <option value="new">Blush</option>
+              <option value="dark">Dark Mode</option>
+            </select>
+          </div>
+        </div>
         <div className="bc-title-block">
           <h1 className="bc-title-main">Ingredients</h1>
           <p className="bc-title-sub">C O N V E R T E R</p>

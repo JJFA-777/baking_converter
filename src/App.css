@@ -2,7 +2,13 @@
 
 
 :root {
-  /* Color Palette */
+  /* Typography (Shared) */
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Inter', sans-serif;
+  --font-handwriting: 'Dancing Script', cursive;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Default Theme (Luxe) */
   --color-gold: #D4AF37;
   --color-gold-light: #F5C518;
   --color-gold-dark: #B8860B;
@@ -14,21 +20,71 @@
   --color-border: #EAE6DA;
   --color-shadow: rgba(26, 18, 6, 0.06);
   --color-shadow-heavy: rgba(26, 18, 6, 0.12);
-
-  /* Typography */
-  --font-serif: 'Playfair Display', serif;
-  --font-sans: 'Inter', sans-serif;
-  --font-handwriting: 'Dancing Script', cursive;
-
-  /* Transitions */
-  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --bg-gradient: radial-gradient(circle at top, #FFFFFF 0%, #FDFCF8 100%);
+  --color-danger-bg: #FFF5F5;
+  --color-danger-text: #CC4444;
+  --color-backdrop: rgba(26, 18, 6, 0.4);
 }
 
-.bc-handwriting-title {
-  font-family: var(--font-handwriting) !important;
-  font-size: 2em;
-  font-weight: 700;
-  color: inherit;
+/* ─── Theme: Standard (Clean & Professional) ─────────────────────────────────── */
+.theme-standard {
+  /* Warm Terracotta accent */
+  --color-gold: #D35400;
+  --color-gold-light: #E67E22;
+  --color-gold-dark: #A04000;
+  --color-champagne: #FAD7A0;
+  --color-cream: #FDFEFE;
+  --color-surface: #FFFFFF;
+  --color-text: #2C3E50;
+  --color-text-muted: #7F8C8D;
+  --color-border: #D5DBDB;
+  --color-shadow: rgba(44, 62, 54, 0.06);
+  --color-shadow-heavy: rgba(44, 62, 54, 0.12);
+  --bg-gradient: linear-gradient(to bottom, #FFFFFF 0%, #FDFEFE 100%);
+}
+
+/* ─── Theme: New (Cream, Rose, Plum) ────────────────────────────────────────── */
+.theme-new {
+  /* Grounding with Plum and Cream */
+  --color-gold: #D4A5A5; /* Rose accent */
+  --color-gold-light: #E5B7B7;
+  --color-gold-dark: #2D1B2D; /* Plum structural */
+  --color-champagne: #FDF5E6; /* Cream */
+  --color-cream: #FDF5E6;
+  --color-surface: #FFFFFF;
+  --color-text: #2D1B2D; /* Deep Plum text */
+  --color-text-muted: #8E7B7B; /* Muted Rose/Brown */
+  --color-border: #E5D9D0;
+  --color-shadow: rgba(45, 27, 45, 0.08);
+  --color-shadow-heavy: rgba(45, 27, 45, 0.16);
+  --bg-gradient: radial-gradient(circle at top, #FDFCF8 0%, #FDF5E6 100%);
+  --color-danger-bg: #FEE2E2;
+  --color-danger-text: #B91C1C;
+  --color-backdrop: rgba(45, 27, 45, 0.4);
+}
+
+/* ─── Theme: Dark (Plum-tinted Dark Mode) ───────────────────────────────────── */
+.theme-dark {
+  /* Deep Plum Base with Cream Text */
+  --color-gold: #D4A5A5;
+  --color-gold-light: #E5B7B7;
+  --color-gold-dark: #451A1A; /* Darker Plum for CTA contrast */
+  --color-champagne: #3D303D;
+  --color-cream: #1A121A; /* Deepest Plum-Black */
+  --color-surface: #2D242D; /* Lighter Plum-Grey surface */
+  --color-text: #FDF5E6; /* High contrast Cream text */
+  --color-text-muted: #C0B5C0; /* Lighter Plum-Grey text */
+  --color-border: #3D303D;
+  --color-shadow: rgba(0, 0, 0, 0.4);
+  --color-shadow-heavy: rgba(0, 0, 0, 0.6);
+  --bg-gradient: radial-gradient(circle at top, #2D242D 0%, #1A121A 100%);
+  --color-danger-bg: #451A1A;
+  --color-danger-text: #F87171;
+  --color-backdrop: rgba(0, 0, 0, 0.7);
+}
+
+.theme-dark .bc-handwriting-title {
+  color: var(--color-text);
 }
 
 /* ─── Reset & Base ──────────────────────────────────────────────────────────── */
@@ -45,23 +101,54 @@ body {
 /* ─── App Wrapper ───────────────────────────────────────────────────────────── */
 .bc-wrap {
   min-height: 100vh;
-  background: radial-gradient(circle at top, #FFFFFF 0%, #FDFCF8 100%);
+  background: var(--bg-gradient);
   position: relative;
 }
 
 /* ─── Header ────────────────────────────────────────────────────────────────── */
 .bc-header {
   background: var(--color-surface);
-  padding: 32px 24px 24px;
+  padding: 24px 20px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   border-bottom: 1px solid var(--color-border);
 }
 
+.bc-header-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bc-theme-switcher {
+  display: flex;
+  align-items: center;
+}
+
+.bc-theme-select {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: var(--transition-smooth);
+}
+
+.bc-theme-select:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
 .bc-logo {
-  height: 64px;
+  height: 56px;
   width: auto;
   transition: var(--transition-smooth);
 }
@@ -104,7 +191,8 @@ body {
   width: calc(100% - 40px);
   max-width: 400px;
   height: 68px;
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--color-surface);
+  opacity: 0.85;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: 34px;
@@ -211,7 +299,7 @@ body {
 .bc-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(26, 18, 6, 0.4);
+  background: var(--color-backdrop);
   backdrop-filter: blur(4px);
   z-index: 500;
   animation: bc-fade-in 0.3s ease;
@@ -392,13 +480,24 @@ body {
   font-size: 16px;
   font-family: var(--font-sans);
   background: var(--color-surface);
+  color: var(--color-text);
   transition: var(--transition-smooth);
+}
+
+.bc-input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.8;
 }
 
 .bc-input:focus, .bc-select:focus {
   border-color: var(--color-gold);
   outline: none;
   box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.bc-select option {
+  background-color: var(--color-surface);
+  color: var(--color-text);
 }
 
 .bc-add-btn {
@@ -448,10 +547,10 @@ body {
 
 .bc-del-btn {
   padding: 8px;
-  background: #FFF5F5;
+  background: var(--color-danger-bg);
   border: none;
   border-radius: 8px;
-  color: #CC4444;
+  color: var(--color-danger-text);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -508,7 +607,7 @@ body {
   position: absolute;
   top: 12px;
   right: 12px;
-  background: white;
+  background: var(--color-surface);
   color: var(--color-gold);
   width: 32px;
   height: 32px;
@@ -640,7 +739,7 @@ body {
 }
 
 .bc-err {
-  color: #CC4444;
+  color: var(--color-danger-text);
   font-size: 12px;
   margin-top: -10px;
   margin-bottom: 10px;
@@ -689,10 +788,10 @@ body {
 
 .bc-del-btn {
   padding: 8px;
-  background: #FFF5F5;
+  background: var(--color-danger-bg);
   border: none;
   border-radius: 8px;
-  color: #CC4444;
+  color: var(--color-danger-text);
   cursor: pointer;
   display: flex;
   align-items: center;
