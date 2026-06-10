@@ -479,7 +479,7 @@ function IngredientPicker({ value, onChange, customIngredients }) {
       <button className="bc-picker-trigger" onClick={() => setOpen(true)} id="ingredient-picker-btn">
         <span className="bc-trigger-icon">{selected ? selected.icon : "⭐"}</span>
         <div className="bc-trigger-info">
-          <span className="bc-trigger-name">{selected ? selected.name : "Choose from 170+ ingredients"}</span>
+          <span className="bc-trigger-name">{selected ? selected.name : "Choose from 180+ ingredients"}</span>
           <span className="bc-trigger-meta">{selected ? `${selected.gramsPerCup}g / cup` : ""}</span>
         </div>
         <span className="bc-trigger-chevron"><IconChevron /></span>
@@ -495,7 +495,7 @@ function IngredientPicker({ value, onChange, customIngredients }) {
               <input
                 ref={searchRef}
                 type="text"
-                placeholder="Search 170+ ingredients…"
+                placeholder="Search 180+ ingredients…"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 className="bc-panel-search"
@@ -899,7 +899,7 @@ export default function BakingConverter() {
           </div>
         </div>
         <div className="bc-title-block">
-          <h1 className="bc-title-main">Ingredients</h1>
+          <h1 className="bc-title-main">{tab === "temperature" ? "Temperature" : "Ingredients"}</h1>
           <p className="bc-title-sub">C O N V E R T E R</p>
         </div>
       </header>
@@ -913,7 +913,7 @@ export default function BakingConverter() {
               <h3 className="bc-custom-title" style={{ fontSize: '20px', marginBottom: '8px' }}>How it works</h3>
               <p className="bc-custom-footer-note" style={{ textAlign: 'left', margin: '0 24px 24px', lineHeight: '1.5' }}>
                 This converter helps you quickly translate baking measurements between different units like grams, cups, ounces, tablespoons, and teaspoons.
-                Simply select one from 170+ ingredients, enter the amount and unit you have, and we'll show you the equivalent in other common units.
+                Simply select one from 180+ ingredients, enter the amount and unit you have, and we'll show you the equivalent in other common units.
                 Perfect for ensuring precision in your recipes!
               </p>
             </div>

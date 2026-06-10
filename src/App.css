@@ -6,6 +6,14 @@
   --font-serif: 'Playfair Display', serif;
   --font-sans: 'Inter', sans-serif;
   --font-handwriting: 'Dancing Script', cursive;
+
+.bc-handwriting-title {
+  font-family: var(--font-handwriting);
+}
+
+.bc-results-header .bc-handwriting-title {
+  font-size: 24px;
+}
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Default Theme (Luxe) */
@@ -119,8 +127,9 @@ body {
 .bc-header-top {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end; /* Push switcher to the right */
   align-items: center;
+  position: relative; /* Allow absolute positioning of logo */
 }
 
 .bc-theme-switcher {
@@ -148,6 +157,9 @@ body {
 }
 
 .bc-logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   height: 56px;
   width: auto;
   transition: var(--transition-smooth);
