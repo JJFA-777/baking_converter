@@ -276,7 +276,7 @@ const DEFAULT_INGREDIENTS = INGREDIENT_GROUPS.flatMap(g => g.items);
 // ─────────────────────────────────────────────────────────────────────────────
 // UNITS
 // ─────────────────────────────────────────────────────────────────────────────
-const UNITS = ["grams", "kg", "cups", "ounces", "tablespoon", "teaspoon", "ml", "cl", "litres"];
+const UNITS = ["grams", "kg", "cups", "ounces", "tablespoon", "teaspoon", "milliliters", "centiliters", "litres"];
 const UNIT_LABELS = {
   grams: "g",
   kg: "kg",
@@ -284,9 +284,21 @@ const UNIT_LABELS = {
   ounces: "oz",
   tablespoon: "tbsp",
   teaspoon: "tsp",
-  ml: "ml",
-  cl: "cl",
+  milliliters: "ml",
+  centiliters: "cl",
   litres: "l"
+};
+
+const UNIT_DISPLAY_NAMES = {
+  grams: "grams",
+  kg: "kilograms",
+  cups: "cups",
+  ounces: "ounces",
+  tablespoon: "tablespoons",
+  teaspoon: "teaspoons",
+  milliliters: "milliliters",
+  centiliters: "centiliters",
+  litres: "litres"
 };
 
 const ML_PER_CUP = 236.5882;
@@ -1087,7 +1099,7 @@ export default function BakingConverter() {
                   title="Tap to copy"
                   className={`bc-result-row${copied === r.unit ? " is-copied" : ""}`}
                 >
-                  <span className="bc-result-unit">{r.unit}</span>
+                  <span className="bc-result-unit">{UNIT_DISPLAY_NAMES[r.unit] || r.unit}</span>
                   <div className="bc-result-value">
                     {r.value}
                     <span className="bc-result-suffix">{r.label}</span>
