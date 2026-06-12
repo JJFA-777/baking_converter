@@ -334,8 +334,12 @@ function toGrams(value, unit, gpc) {
     case "ounces":     return v * 28.3495;
     case "tablespoon": return v * (gpc / 16);
     case "teaspoon":   return v * (gpc / 48);
-    case "ml":         return v * (gpc / ML_PER_CUP);
-    case "cl":         return (v * 10) * (gpc / ML_PER_CUP);
+    case "milliliters":
+case "ml":
+  return v * (gpc / ML_PER_CUP);
+    case "centiliters":
+case "cl":
+  return (v * 10) * (gpc / ML_PER_CUP);
     case "litres":     return (v * 1000) * (gpc / ML_PER_CUP);
     default:           return v;
   }
@@ -348,8 +352,10 @@ function fromGrams(g, unit, gpc) {
     case "ounces":     return g / 28.3495;
     case "tablespoon": return g / (gpc / 16);
     case "teaspoon":   return g / (gpc / 48);
-    case "ml":         return g / (gpc / ML_PER_CUP);
-    case "cl":         return (g / (gpc / ML_PER_CUP)) / 10;
+    case "milliliters":
+case "ml":
+  return g / (gpc / ML_PER_CUP);
+    case "centiliters":         return (g / (gpc / ML_PER_CUP)) / 10;
     case "litres":     return (g / (gpc / ML_PER_CUP)) / 1000;
     default:           return g;
   }
@@ -374,13 +380,9 @@ function formatValue(value, unit) {
     return value.toFixed(2);
   }
 
-  if (unit === "ml") {
-    if (value < 1) return value.toFixed(1);
-    return Math.round(value).toString();
-  }
+  if (unit === "milliliters" || unit === "ml") { return value.toFixed(1); }
 
-  if (unit === "cl") {
-    if (value < 1) return value.toFixed(2);
+  if (unit === "cl" || unit === "centiliters") {
     return value.toFixed(1);
   }
 
@@ -990,12 +992,12 @@ export default function BakingConverter() {
   const ing      = all.find(i => i.id === selId);
   const isLiquid = isLiquidIngredient(ing);
   const allowedUnits = UNITS.filter(u => {
-    if (u === "ml" || u === "cl" || u === "litres") return isLiquid;
+    if (u === "milliliters" || u === "centiliters" || u === "litres") return isLiquid;
     return true;
   });
 
   useEffect(() => {
-    if (ing && !isLiquid && (fromUnit === "ml" || fromUnit === "cl" || fromUnit === "litres")) {
+    if (ing && !isLiquid && (fromUnit === "milliliters" || fromUnit === "centiliters" || fromUnit === "litres")) {
       setFromUnit("");
     }
   }, [selId, ing, isLiquid, fromUnit]);
