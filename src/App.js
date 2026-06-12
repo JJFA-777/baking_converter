@@ -7,6 +7,11 @@ import "./App.css";
 const LOGO = "/favicon.png";
 const LOGO_WHITE = "/images/logo-white.png";
 
+// Social Media URLs (Configurable)
+const INSTAGRAM_URL = "https://instagram.com/bakingintelligence";
+const FACEBOOK_URL = "https://facebook.com/bakingintelligence";
+const TIKTOK_URL = "https://tiktok.com/@bakingintelligence";
+
 // ─────────────────────────────────────────────────────────────────────────────
 // INGREDIENT DATA
 // ─────────────────────────────────────────────────────────────────────────────
@@ -271,8 +276,38 @@ const DEFAULT_INGREDIENTS = INGREDIENT_GROUPS.flatMap(g => g.items);
 // ─────────────────────────────────────────────────────────────────────────────
 // UNITS
 // ─────────────────────────────────────────────────────────────────────────────
-const UNITS = ["grams", "cups", "ounces", "tablespoon", "teaspoon"];
-const UNIT_LABELS = { grams: "g", cups: "cup", ounces: "oz", tablespoon: "tbsp", teaspoon: "tsp" };
+const UNITS = ["grams", "kg", "cups", "ounces", "tablespoon", "teaspoon", "ml", "cl", "litres"];
+const UNIT_LABELS = {
+  grams: "g",
+  kg: "kg",
+  cups: "cup",
+  ounces: "oz",
+  tablespoon: "tbsp",
+  teaspoon: "tsp",
+  ml: "ml",
+  cl: "cl",
+  litres: "l"
+};
+
+const ML_PER_CUP = 236.5882;
+
+function isLiquidIngredient(item) {
+  if (!item) return false;
+  if (item.isLiquid) return true;
+  const idLower = item.id.toLowerCase();
+  const nameLower = item.name.toLowerCase();
+  
+  if (nameLower.includes("powder") || idLower.includes("powder") || 
+      nameLower.includes("dry") || idLower.includes("dried")) {
+    return false;
+  }
+  
+  const liquidKeywords = [
+    "oil", "water", "milk", "juice", "syrup", "honey", "cream", "agave", 
+    "molasses", "buttermilk", "evaporated", "condensed", "ghee", "nectar", "treacle"
+  ];
+  return liquidKeywords.some(kw => idLower.includes(kw) || nameLower.includes(kw));
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // HELPERS
@@ -281,22 +316,30 @@ function toGrams(value, unit, gpc) {
   const v = parseFloat(value);
   if (isNaN(v)) return NaN;
   switch (unit) {
-    case "grams":  return v;
-    case "cups":   return v * gpc;
-    case "ounces": return v * 28.3495;
+    case "grams":      return v;
+    case "kg":         return v * 1000;
+    case "cups":       return v * gpc;
+    case "ounces":     return v * 28.3495;
     case "tablespoon": return v * (gpc / 16);
-    case "teaspoon":    return v * (gpc / 48);
-    default:       return v;
+    case "teaspoon":   return v * (gpc / 48);
+    case "ml":         return v * (gpc / ML_PER_CUP);
+    case "cl":         return (v * 10) * (gpc / ML_PER_CUP);
+    case "litres":     return (v * 1000) * (gpc / ML_PER_CUP);
+    default:           return v;
   }
 }
 function fromGrams(g, unit, gpc) {
   switch (unit) {
-    case "grams":  return g;
-    case "cups":   return g / gpc;
-    case "ounces": return g / 28.3495;
+    case "grams":      return g;
+    case "kg":         return g / 1000;
+    case "cups":       return g / gpc;
+    case "ounces":     return g / 28.3495;
     case "tablespoon": return g / (gpc / 16);
-    case "teaspoon":    return g / (gpc / 48);
-    default:       return g;
+    case "teaspoon":   return g / (gpc / 48);
+    case "ml":         return g / (gpc / ML_PER_CUP);
+    case "cl":         return (g / (gpc / ML_PER_CUP)) / 10;
+    case "litres":     return (g / (gpc / ML_PER_CUP)) / 1000;
+    default:           return g;
   }
 }
 function formatValue(value, unit) {
@@ -314,8 +357,28 @@ function formatValue(value, unit) {
     return Math.round(value).toString();
   }
 
-  // For cups, tbsp, tsp - use fractions
-  const fractions = [
+  if (unit === "kg") {
+    if (value < 0.1) return value.toFixed(3);
+    return value.toFixed(2);
+  }
+
+  if (unit === "ml") {
+    if (value < 1) return value.toFixed(1);
+    return Math.round(value).toString();
+  }
+
+  if (unit === "cl") {
+    if (value < 1) return value.toFixed(2);
+    return value.toFixed(1);
+  }
+
+  if (unit === "litres") {
+    if (value < 0.1) return value.toFixed(3);
+    return value.toFixed(2);
+  }
+
+  // Fractions configuration for cups vs spoons (exclude thirds on spoons)
+  const standardFractions = [
     { val: 0.75, str: "3/4" },
     { val: 0.6667, str: "2/3" },
     { val: 0.5, str: "1/2" },
@@ -324,8 +387,18 @@ function formatValue(value, unit) {
     { val: 0.125, str: "1/8" },
   ];
 
-  // We use a precision of 24ths to accommodate both 8ths and 3rds
-  const n = Math.round(value * 24) / 24;
+  const spoonFractions = [
+    { val: 0.75, str: "3/4" },
+    { val: 0.5, str: "1/2" },
+    { val: 0.25, str: "1/4" },
+    { val: 0.125, str: "1/8" },
+  ];
+
+  const isSpoon = (unit === "tablespoon" || unit === "teaspoon");
+  const fractions = isSpoon ? spoonFractions : standardFractions;
+  const precision = isSpoon ? 8 : 24;
+
+  const n = Math.round(value * precision) / precision;
   if (n === 0) return "0";
   if (Number.isInteger(n)) return n.toString();
 
@@ -441,6 +514,26 @@ const IconThermometer = () => (
 const IconWhatsApp = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+);
+
+const IconInstagram = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+  </svg>
+);
+
+const IconFacebook = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  </svg>
+);
+
+const IconTikTok = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5.5 5h-1.5a4 4 0 0 1-4-4" />
   </svg>
 );
 
@@ -832,6 +925,34 @@ function TemperatureTab({ tempVal, setTempVal, tempUnit, setTempUnit, copied, se
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// FOOTER
+// ─────────────────────────────────────────────────────────────────────────────
+function AppFooter() {
+  const waLink = WA_NUMBER ? `https://wa.me/${WA_NUMBER.replace("+", "")}` : null;
+  return (
+    <footer className="bc-footer">
+      <div className="bc-footer-socials">
+        {waLink && (
+          <a href={waLink} target="_blank" rel="noopener noreferrer" className="bc-social-link" title="WhatsApp">
+            <IconWhatsApp />
+          </a>
+        )}
+        <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="bc-social-link" title="Instagram">
+          <IconInstagram />
+        </a>
+        <a href={FACEBOOK_URL} target="_blank" rel="noopener noreferrer" className="bc-social-link" title="Facebook">
+          <IconFacebook />
+        </a>
+        <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" className="bc-social-link" title="TikTok">
+          <IconTikTok />
+        </a>
+      </div>
+      <p className="bc-footer-text">© {new Date().getFullYear()} Baking Intelligence. All rights reserved.</p>
+    </footer>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // MAIN APP
 // ─────────────────────────────────────────────────────────────────────────────
 export default function BakingConverter() {
@@ -854,9 +975,21 @@ export default function BakingConverter() {
     localStorage.setItem("bi_theme", theme);
   }, [theme]);
 
-  const ing     = all.find(i => i.id === selId);
+  const ing      = all.find(i => i.id === selId);
+  const isLiquid = isLiquidIngredient(ing);
+  const allowedUnits = UNITS.filter(u => {
+    if (u === "ml" || u === "cl" || u === "litres") return isLiquid;
+    return true;
+  });
+
+  useEffect(() => {
+    if (ing && !isLiquid && (fromUnit === "ml" || fromUnit === "cl" || fromUnit === "litres")) {
+      setFromUnit("");
+    }
+  }, [selId, ing, isLiquid, fromUnit]);
+
   const baseG   = ing ? toGrams(val, fromUnit, ing.gramsPerCup) : 0;
-  const results = UNITS.filter(u => u !== fromUnit).map(u => ({
+  const results = allowedUnits.filter(u => u !== fromUnit).map(u => ({
     unit: u, label: UNIT_LABELS[u], value: ing ? formatValue(fromGrams(baseG, u, ing.gramsPerCup), u) : "—",
   }));
 
@@ -937,7 +1070,7 @@ export default function BakingConverter() {
                 <label className="bc-label">From Unit</label>
                 <select id="unit-select" value={fromUnit} onChange={e => setFromUnit(e.target.value)} className="bc-select">
                   <option value="" disabled>Choose unit</option>
-                  {UNITS.map(u => <option key={u} value={u}>{UNIT_LABELS[u]} — {u}</option>)}
+                  {allowedUnits.map(u => <option key={u} value={u}>{UNIT_LABELS[u]} — {u}</option>)}
                 </select>
               </div>
             </div>
@@ -1057,6 +1190,7 @@ export default function BakingConverter() {
             )}
           </>
         )}
+        <AppFooter />
       </div>
 
       {/* ── Bottom Navigation ── */}
