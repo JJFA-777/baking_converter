@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import "./App.css";
+import ConversionCharts from "./ConversionCharts";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // ASSETS
@@ -1116,6 +1117,9 @@ export default function BakingConverter() {
 
             {/* ── Book Ads ── */}
             <EbooksSection />
+
+            {/* ── Static SEO Conversion Charts ── */}
+            <ConversionCharts />
           </>
         )}
 
