@@ -919,9 +919,9 @@ function TemperatureTab({ tempVal, setTempVal, tempUnit, setTempUnit, copied, se
       <div className="bc-hint">Tap any result to copy</div>
 
       <div className="bc-temp-guide-section">
-        <h3 className="bc-handwriting-title" style={{ fontSize: '28px', marginBottom: '8px', textAlign: 'center' }}>
+        <h2 className="bc-handwriting-title" style={{ fontSize: '28px', marginBottom: '8px', textAlign: 'center' }}>
           Oven Temperature Guide
-        </h3>
+        </h2>
         <div className="bc-temp-guide-grid">
           {bakingZones.map((zone, idx) => (
             <div key={idx} className="bc-temp-guide-row">
@@ -1046,7 +1046,8 @@ export default function BakingConverter() {
           </div>
         </div>
         <div className="bc-title-block">
-          <h1 className="bc-title-main">{tab === "temperature" ? "Temperature" : "Ingredients"}</h1>
+          <h1 className="bc-visually-hidden">Baking Measurement & Ingredient Converter</h1>
+          <h2 className="bc-title-main">{tab === "temperature" ? "Temperature" : "Ingredients"}</h2>
           <p className="bc-title-sub">C O N V E R T E R</p>
         </div>
       </header>
@@ -1057,7 +1058,7 @@ export default function BakingConverter() {
         {tab === "convert" && (
           <>
             <div className="bc-custom-card bc-how-it-works">
-              <h3 className="bc-custom-title" style={{ fontSize: '20px', marginBottom: '8px' }}>How it works</h3>
+              <h2 className="bc-custom-title" style={{ fontSize: '20px', marginBottom: '8px' }}>How to use the Baking Converter</h2>
               <p className="bc-custom-footer-note" style={{ textAlign: 'left', margin: '0 24px 24px', lineHeight: '1.5' }}>
                 This converter helps you quickly translate baking measurements between different units like grams, cups, ounces, tablespoons, and teaspoons.
                 Simply select one from 180+ ingredients, enter the amount and unit you have, and we'll show you the equivalent in other common units.
