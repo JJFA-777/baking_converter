@@ -691,7 +691,7 @@ function EbookCard({ book, index }) {
   );
 }
 
-function EbooksSection() {
+function EbooksSection({ onSwitchToBooks }) {
   return (
     <div className="bc-ebooks-section">
       <div className="bc-ebooks-header">
@@ -701,7 +701,17 @@ function EbooksSection() {
       <div className="bc-ebooks-scroll">
         {EBOOKS.slice(0, 3).map((book, i) => <EbookCard key={book.id} book={book} index={i} />)}
       </div>
-      <p className="bc-ebooks-hint-more">See full collection in Ebooks tab</p>
+      <a
+        href="#ebooks"
+        role="button"
+        className="bc-ebooks-hint-more"
+        onClick={(e) => {
+          e.preventDefault();
+          if (onSwitchToBooks) onSwitchToBooks();
+        }}
+      >
+        Browse our recipe eBooks library
+      </a>
     </div>
   );
 }
@@ -1116,7 +1126,7 @@ export default function BakingConverter() {
             <div className="bc-hint">Tap any result to copy</div>
 
             {/* ── Book Ads ── */}
-            <EbooksSection />
+            <EbooksSection onSwitchToBooks={() => setTab("books")} />
 
             {/* ── Static SEO Conversion Charts ── */}
             <ConversionCharts />
