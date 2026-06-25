@@ -1,0 +1,15 @@
+use strict;
+use warnings;
+my $r = chr(125);
+my $f = "src/ConversionCharts.js";
+open(my $fh, "<", $f) or die $!;
+local $/;
+my $s = <$fh>;
+close $fh;
+$s =~ s|\{r\.name</td>|"{r.name" . $r .</td>"|e;
+$s =~ s|\{r\.gpc</td>|"{r.gpc" . $r .</td>"|e;
+$s =~ s|\{rows\.<//tbody>|"{rows" . $r .</tbody>"|e;
+open(my $fo, ">", $f) or die $!;
+print $fo $s;
+close $fo;
+print "done\n";

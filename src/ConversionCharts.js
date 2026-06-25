@@ -16,74 +16,57 @@ const ROWS = [
   { name: "Heavy / Whipping Cream",        gpc: 238 },
 ];
 
-const TD_LEFT = { padding: "8px", textAlign: "left" };
-const TD_RIGHT = { padding: "8px", textAlign: "right" };
+function ozFromGrams(g) {
+  return Math.round((g / G_PER_OZ) * 10) / 10;
+}
 
 function gramsForMl(gpc, ml) {
   return Math.round((gpc / ML_PER_CUP) * ml);
 }
 
-function ozFromGrams(g) {
-  return Math.round((g / G_PER_OZ) * 10) / 10;
-}
-
-function buildRow(r) {
-  var name = r.name;
-  var gpc = r.gpc;
-  return (
-    <tr key={name} style={{ borderTop: "1px solid var(--border)" }}>
-      <td style={TD_LEFT}>{name}</td>
-      <td style={TD_RIGHT}>{gpc}</td>
-      <td style={TD_RIGHT}>{ozFromGrams(gpc)}</td>
-      <td style={TD_RIGHT}>{gramsForMl(gpc, 240)}</td>
-    </tr>
-  );
-}
-
 export default function ConversionCharts() {
-  var rows = ROWS.map(buildRow);
-
   return (
     <section
       className="bc-conversion-charts"
       aria-labelledby="conversion-charts-heading"
-      style={{
-        margin: "24px 16px",
-        padding: "16px",
-        borderRadius: "16px",
-        background: "var(--surface)",
-        border: "1px solid var(--border)",
-      }}
     >
       <h2
         id="conversion-charts-heading"
-        style={{ fontSize: "20px", marginBottom: "8px" }}
+        className="bc-charts-heading bc-handwriting-title"
       >
-        Common Ingredient Conversion Charts
+        Common Ingredient Conversions
       </h2>
-      <p style={{ margin: "0 0 16px", lineHeight: 1.5, fontSize: "15px" }}>
-        Use these quick-reference baking measurement charts to convert cups to
-        grams and ounces for the most-searched baking ingredients. Every value
-        reflects the density of the ingredient and not a one-size-fits-all
-        approximation, so your baking measurements stay precise.
+      <p className="bc-charts-description">
+        Quick-reference baking measurement charts — cups to grams and ounces for
+        the most popular ingredients. Each value reflects the ingredient's actual
+        density for precise baking.
       </p>
-      <table
-        className="bc-conversion-table"
-        style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}
-      >
-        <caption className="bc-visually-hidden">
-          Baking ingredient density chart for cups, ounces, and millilitres
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col" style={TD_LEFT}>Ingredient</th>
-            <th scope="col" style={TD_RIGHT}>1 US cup in grams</th>
-            <th scope="col" style={TD_RIGHT}>1 US cup in ounces</th>
-            <th scope="col" style={TD_RIGHT}>240 ml in grams</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </table>
+
+      <div className="bc-charts-table-wrap">
+        <table className="bc-charts-table">
+          <caption className="bc-visually-hidden">
+            Baking ingredient density chart for cups, ounces, and millilitres
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col" className="bc-charts-th bc-charts-th-left">Ingredient</th>
+              <th scope="col" className="bc-charts-th bc-charts-th-right">1 cup (g)</th>
+              <th scope="col" className="bc-charts-th bc-charts-th-right">1 cup (oz)</th>
+              <th scope="col" className="bc-charts-th bc-charts-th-right">240 ml (g)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ROWS.map((r) => (
+              <tr key={r.name} className="bc-charts-row">
+                <td className="bc-charts-td bc-charts-td-name">{r.name}</td>
+                <td className="bc-charts-td bc-charts-td-val">{r.gpc}</td>
+                <td className="bc-charts-td bc-charts-td-val">{ozFromGrams(r.gpc)}</td>
+                <td className="bc-charts-td bc-charts-td-val">{gramsForMl(r.gpc, 240)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </section>
   );
 }
