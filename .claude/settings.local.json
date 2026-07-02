@@ -25,7 +25,9 @@
       "Bash(sed -i 's|ZZ<|}<|g' src/ConversionCharts.js)",
       "Bash(npx react-scripts *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "WebFetch(domain:bakingintelligence-converter.vercel.app)",
+      "Bash(curl *)"
     ]
   }
 }
