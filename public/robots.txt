@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://bakingintelligence-converter.vercel.app/sitemap.xml
+Sitemap: https://bakingintelligence.shop/converter/sitemap.xml
