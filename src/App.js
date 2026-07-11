@@ -8,6 +8,9 @@ import ConversionCharts from "./ConversionCharts";
 const LOGO = "/favicon.png";
 const LOGO_WHITE = "/images/logo-white.png";
 
+// Main Site URL
+const MAIN_SITE_URL = "https://bakingintelligence.shop";
+
 // Social Media URLs (Configurable)
 const INSTAGRAM_URL = "https://instagram.com/bakingintelligence";
 const FACEBOOK_URL = "https://facebook.com/bakingintelligence";
@@ -553,6 +556,39 @@ const IconTikTok = () => (
 );
 
 // ─────────────────────────────────────────────────────────────────────────────
+// SITE NAVIGATION BAR
+// ─────────────────────────────────────────────────────────────────────────────
+const NAV_LINKS = [
+  { label: "Shop", href: MAIN_SITE_URL + "/shop" },
+  { label: "Academy", href: MAIN_SITE_URL + "/academy" },
+  { label: "Converter", href: MAIN_SITE_URL + "/converter", active: true },
+];
+
+function SiteNav() {
+  return (
+    <nav className="bc-site-nav" aria-label="Main site navigation">
+      <a href={MAIN_SITE_URL} className="bc-site-nav-back" title="Back to Baking Intelligence">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        <span className="bc-site-nav-home">Back to Home</span>
+      </a>
+      <div className="bc-site-nav-links">
+        {NAV_LINKS.map(link => (
+          <a
+            key={link.label}
+            href={link.href}
+            className={`bc-site-nav-link${link.active ? " is-active" : ""}`}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </nav>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // INGREDIENT PICKER
 // ─────────────────────────────────────────────────────────────────────────────
 function IngredientPicker({ value, onChange, customIngredients }) {
@@ -1042,6 +1078,9 @@ export default function BakingConverter() {
 
   return (
     <div className={`bc-wrap theme-${theme}`}>
+
+      {/* ── Site Navigation ── */}
+      <SiteNav />
 
       {/* ── Header ── */}
       <header className="bc-header">
