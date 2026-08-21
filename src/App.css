@@ -1,92 +1,83 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Young+Serif&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Caveat:wght@400;700&display=swap');
 
 :root {
   /* Typography (Shared) */
-  --font-serif: 'Playfair Display', serif;
-  --font-sans: 'Inter', sans-serif;
-  --font-handwriting: 'Dancing Script', cursive;
-
-.bc-handwriting-title {
-  font-family: var(--font-handwriting);
-}
-
-.bc-results-header .bc-handwriting-title {
-  font-size: 24px;
-}
+  --font-serif: 'Young Serif', serif;
+  --font-sans: 'Newsreader', serif;
+  --font-handwriting: 'Caveat', cursive;
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* Default Theme (Luxe) */
-  --color-gold: #D4AF37;
-  --color-gold-light: #F5C518;
-  --color-gold-dark: #B8860B;
-  --color-champagne: #F7E7CE;
-  --color-cream: #FDFCF8;
+  /* Default Theme (Luxe - Golden Anchor) */
+  --color-gold: #FFC72A;
+  --color-gold-light: #FFE082;
+  --color-gold-dark: #CFA01E;
+  --color-champagne: #F5EAD4;
+  --color-cream: #F7EFE1;
   --color-surface: #FFFFFF;
-  --color-text: #3C2A21;
-  --color-text-muted: #8E8471;
-  --color-border: #EAE6DA;
-  --color-shadow: rgba(26, 18, 6, 0.06);
-  --color-shadow-heavy: rgba(26, 18, 6, 0.12);
-  --bg-gradient: radial-gradient(circle at top, #FFFFFF 0%, #FDFCF8 100%);
+  --color-text: #2A1C14;
+  --color-text-muted: #5E3D24;
+  --color-border: #E5D9D0;
+  --color-shadow: rgba(42, 28, 20, 0.05);
+  --color-shadow-heavy: rgba(42, 28, 20, 0.1);
+  --bg-gradient: radial-gradient(circle at top, #FFFFFF 0%, #F7EFE1 100%);
   --color-danger-bg: #FFF5F5;
   --color-danger-text: #CC4444;
-  --color-backdrop: rgba(26, 18, 6, 0.4);
+  --color-backdrop: rgba(42, 28, 20, 0.4);
 }
 
-/* ─── Theme: Standard (Clean & Professional) ─────────────────────────────────── */
+/* ─── Theme: Standard (Warm - Clay Accent) ───────────────────────────────────── */
 .theme-standard {
-  /* Warm Terracotta accent */
-  --color-gold: #D35400;
-  --color-gold-light: #E67E22;
-  --color-gold-dark: #A04000;
-  --color-champagne: #FAD7A0;
-  --color-cream: #FDFEFE;
+  --color-gold: #BE6A41;
+  --color-gold-light: #D98C64;
+  --color-gold-dark: #964F2D;
+  --color-champagne: #F5EAD4;
+  --color-cream: #F7EFE1;
   --color-surface: #FFFFFF;
-  --color-text: #2C3E50;
-  --color-text-muted: #7F8C8D;
-  --color-border: #D5DBDB;
-  --color-shadow: rgba(44, 62, 54, 0.06);
-  --color-shadow-heavy: rgba(44, 62, 54, 0.12);
-  --bg-gradient: linear-gradient(to bottom, #FFFFFF 0%, #FDFEFE 100%);
-}
-
-/* ─── Theme: New (Cream, Rose, Plum) ────────────────────────────────────────── */
-.theme-new {
-  /* Grounding with Plum and Cream */
-  --color-gold: #D4A5A5; /* Rose accent */
-  --color-gold-light: #E5B7B7;
-  --color-gold-dark: #2D1B2D; /* Plum structural */
-  --color-champagne: #FDF5E6; /* Cream */
-  --color-cream: #FDF5E6;
-  --color-surface: #FFFFFF;
-  --color-text: #2D1B2D; /* Deep Plum text */
-  --color-text-muted: #8E7B7B; /* Muted Rose/Brown */
+  --color-text: #2A1C14;
+  --color-text-muted: #5E3D24;
   --color-border: #E5D9D0;
-  --color-shadow: rgba(45, 27, 45, 0.08);
-  --color-shadow-heavy: rgba(45, 27, 45, 0.16);
-  --bg-gradient: radial-gradient(circle at top, #FDFCF8 0%, #FDF5E6 100%);
-  --color-danger-bg: #FEE2E2;
-  --color-danger-text: #B91C1C;
-  --color-backdrop: rgba(45, 27, 45, 0.4);
+  --color-shadow: rgba(42, 28, 20, 0.05);
+  --color-shadow-heavy: rgba(42, 28, 20, 0.1);
+  --bg-gradient: linear-gradient(to bottom, #FFFFFF 0%, #F7EFE1 100%);
+  --color-danger-bg: #FFF5F5;
+  --color-danger-text: #CC4444;
+  --color-backdrop: rgba(42, 28, 20, 0.4);
 }
 
-/* ─── Theme: Dark (Plum-tinted Dark Mode) ───────────────────────────────────── */
+/* ─── Theme: New (Blush - Rose Accent) ───────────────────────────────────────── */
+.theme-new {
+  --color-gold: #C0504F;
+  --color-gold-light: #D97D7C;
+  --color-gold-dark: #963535;
+  --color-champagne: #F5EAD4;
+  --color-cream: #F7EFE1;
+  --color-surface: #FFFFFF;
+  --color-text: #2A1C14;
+  --color-text-muted: #5E3D24;
+  --color-border: #E5D9D0;
+  --color-shadow: rgba(42, 28, 20, 0.05);
+  --color-shadow-heavy: rgba(42, 28, 20, 0.1);
+  --bg-gradient: radial-gradient(circle at top, #FFFFFF 0%, #F7EFE1 100%);
+  --color-danger-bg: #FFF5F5;
+  --color-danger-text: #CC4444;
+  --color-backdrop: rgba(42, 28, 20, 0.4);
+}
+
+/* ─── Theme: Dark (Plum Dark Mode) ───────────────────────────────────────────── */
 .theme-dark {
-  /* Deep Plum Base with Cream Text */
-  --color-gold: #D4A5A5;
-  --color-gold-light: #E5B7B7;
-  --color-gold-dark: #451A1A; /* Darker Plum for CTA contrast */
-  --color-champagne: #3D303D;
-  --color-cream: #1A121A; /* Deepest Plum-Black */
-  --color-surface: #2D242D; /* Lighter Plum-Grey surface */
-  --color-text: #FDF5E6; /* High contrast Cream text */
-  --color-text-muted: #C0B5C0; /* Lighter Plum-Grey text */
+  --color-gold: #8E4F69;
+  --color-gold-light: #B0728B;
+  --color-gold-dark: #6C354C;
+  --color-champagne: #2D1B2D;
+  --color-cream: #1A121A;
+  --color-surface: #2D242D;
+  --color-text: #F7EFE1;
+  --color-text-muted: #C5B5C5;
   --color-border: #3D303D;
   --color-shadow: rgba(0, 0, 0, 0.4);
   --color-shadow-heavy: rgba(0, 0, 0, 0.6);
   --bg-gradient: radial-gradient(circle at top, #2D242D 0%, #1A121A 100%);
-  --color-danger-bg: #451A1A;
+  --color-danger-bg: #4A2535;
   --color-danger-text: #F87171;
   --color-backdrop: rgba(0, 0, 0, 0.7);
 }
@@ -111,6 +102,27 @@ body {
   min-height: 100vh;
   background: var(--bg-gradient);
   position: relative;
+  overflow-x: hidden;
+}
+
+/* Subtle seed pattern background */
+.bc-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 20% 20%, var(--color-gold) 1px, transparent 1px),
+                      radial-gradient(circle at 80% 30%, var(--color-gold) 1px, transparent 1px),
+                      radial-gradient(circle at 40% 70%, var(--color-gold) 0.8px, transparent 0.8px),
+                      radial-gradient(circle at 60% 80%, var(--color-gold) 0.8px, transparent 0.8px);
+  background-size: 40px 40px, 50px 50px, 30px 30px, 35px 35px;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bc-wrap > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* ─── Site Navigation Bar ───────────────────────────────────────────────────── */
@@ -120,12 +132,15 @@ body {
   justify-content: space-between;
   padding: 12px 24px;
   background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-top: 3px solid var(--color-gold);
-  border-bottom: 1px solid var(--color-border);
+  border-radius: 20px;
+  max-width: 560px;
+  margin: 16px auto 0;
   font-family: var(--font-sans);
   position: relative;
   z-index: 10;
-  box-shadow: 0 4px 12px var(--color-shadow);
+  box-shadow: 0 8px 24px var(--color-shadow);
 }
 
 .bc-site-nav-back {
@@ -215,9 +230,11 @@ body {
   color: var(--color-gold-light);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 580px) {
   .bc-site-nav {
+    margin: 12px 14px 0;
     padding: 10px 16px;
+    border-radius: 16px;
   }
 
   .bc-site-nav-links {
@@ -286,7 +303,7 @@ body {
 
 .bc-theme-select:focus {
   border-color: var(--color-gold);
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+  box-shadow: 0 0 0 3px rgba(255, 199, 42, 0.15);
 }
 
 .bc-logo {
@@ -297,32 +314,47 @@ body {
   width: auto;
   transition: var(--transition-smooth);
 }
-.bc-logo:hover { transform: scale(1.05) rotate(-1deg); }
+.bc-logo:hover { transform: translateX(-50%) scale(1.05); }
 
 .bc-title-block {
   text-align: center;
 }
 
+.bc-pro-baker-heading {
+  display: block;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-gold-dark);
+  line-height: 1;
+  margin-bottom: 2px;
+  opacity: 0.95;
+}
+
+.theme-dark .bc-pro-baker-heading {
+  color: var(--color-gold-light);
+}
+
 .bc-title-main {
   font-family: var(--font-serif);
   font-size: 38px;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--color-text);
   line-height: 1.1;
   margin-bottom: 4px;
 }
 
 .bc-title-sub {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.4em;
   color: var(--color-gold);
   text-transform: uppercase;
+  font-family: var(--font-sans);
 }
 
 /* ─── Body ──────────────────────────────────────────────────────────────────── */
 .bc-body {
-  padding: 24px 20px 120px; /* Extra bottom padding for floating nav */
+  padding: 24px 20px 120px;
   max-width: 560px;
   margin: 0 auto;
 }
@@ -660,11 +692,14 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(184, 134, 11, 0.3);
+  box-shadow: 0 4px 15px var(--color-shadow);
   transition: var(--transition-smooth);
 }
 
-.bc-add-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(184, 134, 11, 0.4); }
+.bc-add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--color-shadow-heavy);
+}
 
 .bc-custom-item {
   display: flex;
@@ -1372,3 +1407,107 @@ body {
 
 
 
+
+/* ─── Decorative Ingredient Badges ────────────────────────────────────────── */
+.bc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: var(--color-cream);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.bc-badge-gold {
+  background: var(--color-champagne);
+  border-color: var(--color-gold);
+  color: var(--color-gold-dark);
+}
+
+/* ─── Soft Background Decorative Elements ───────────────────────────────── */
+.bc-bg-decoration {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.04;
+}
+
+.bc-bg-circles {
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--color-gold) 0%, transparent 70%);
+  filter: blur(30px);
+}
+
+.bc-bg-dough {
+  position: absolute;
+  bottom: 15%;
+  left: 5%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--color-cream) 0%, transparent 70%);
+  filter: blur(40px);
+}
+
+/* ─── Enhanced Input Focus States ───────────────────────────────────────── */
+.bc-input:focus, .bc-select:focus {
+  border-color: var(--color-gold);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 199, 42, 0.15);
+}
+
+/* ─── Card Hover Effects ────────────────────────────────────────────────── */
+.bc-results-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px var(--color-shadow-heavy);
+}
+
+.bc-custom-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px var(--color-shadow-heavy);
+}
+
+/* ─── Scrollbar Styling ──────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}
+
+/* ─── Button Shadows for Dark Mode Consistency ───────────────────────────────── */
+.theme-dark .bc-use-btn {
+  box-shadow: 0 2px 8px rgba(138, 114, 137, 0.4);
+}
+
+.theme-dark .bc-del-btn {
+  box-shadow: 0 2px 8px rgba(193, 189, 189, 0.3);
+}
+
+/* ─── Improved Card Shadows ────────────────────────────────────────────────── */
+.bc-results-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bc-custom-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}

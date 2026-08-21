@@ -5,8 +5,8 @@ import ConversionCharts from "./ConversionCharts";
 // ─────────────────────────────────────────────────────────────────────────────
 // ASSETS
 // ─────────────────────────────────────────────────────────────────────────────
-const LOGO = "/favicon.png";
-const LOGO_WHITE = "/images/logo-white.png";
+const LOGO = "/bi_logo.png";
+const LOGO_WHITE = "/bi_logo.png";
 
 // Main Site URL
 const MAIN_SITE_URL = "https://bakingintelligence.shop";
@@ -448,29 +448,6 @@ function saveCustom(list) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// CONFIG & ADS
-// ─────────────────────────────────────────────────────────────────────────────
-const WA_NUMBER = "+233500880529";
-const EBOOKS = [
-  { id: "ebook-1", title: "Volume 1: Cakes", image: "/images/Volume-1_Cakes.png", message: "Hi! I'm interested in 'Volume 1: Cakes' ebook. Could you tell me more?" },
-  { id: "ebook-2", title: "Volume 2: Quick Breads", image: "/images/Volume-2_Quick-Breads.png", message: "Hi! I'm interested in 'Volume 2: Quick Breads' ebook. Could you tell me more?" },
-  { id: "ebook-3", title: "Volume 3: Cake Fillings Encyclopaedia", image: "/images/Volume-3_Cake-Fillings-Encyclopaedia.png", message: "Hi! I'm interested in 'Volume 3: Cake Fillings Encyclopaedia' ebook. Could you tell me more?" },
-  { id: "ebook-4", title: "Volume 4: Ice Cream Making", image: "/images/Volume-4_Ice-Cream-Making.png", message: "Hi! I'm interested in 'Volume 4: Ice Cream Making' ebook. Could you tell me more?" },
-  { id: "ebook-5", title: "Volume 5: Mastering Cake Business", image: "/images/Volume-5_Mastering-Cake-Business.jpeg", message: "Hi! I'm interested in 'Volume 5: Mastering Cake Business' ebook. Could you tell me more?" },
-  { id: "ebook-6", title: "Volume 6: Dessert Masters", image: "/images/Volume-6_Dessert-Masters.png", message: "Hi! I'm interested in 'Volume 6: Dessert Masters' ebook. Could you tell me more?" },
-  { id: "ebook-7", title: "Volume 7: Homemade Bread Manual", image: "/images/Volume-7_Homemade_Bread_Manual.jpg", message: "Hi! I'm interested in 'Volume 7: Homemade Bread Manual' ebook. Could you tell me more?" },
-  { id: "ebook-8", title: "Volume 8: Perfect Donut Recipe", image: "/images/Volume-8_Perfect-Donut-Recipe.jpg", message: "Hi! I'm interested in 'Volume 8: Perfect Donut Recipe' ebook. Could you tell me more?" },
-  { id: "ebook-9", title: "Volume 9: Yoghurt Making", image: "/images/Volume-9_Yoghurt-Making.png", message: "Hi! I'm interested in 'Volume 9: Yoghurt Making' ebook. Could you tell me more?" },
-  { id: "ebook-10", title: "Volume 10: Tropical Climate Fondant Recipe", image: "/images/Volume-10_Tropical-Climate-Fondant-Recipe.png", message: "Hi! I'm interested in 'Volume 10: Tropical Climate Fondant Recipe' ebook. Could you tell me more?" },
-  { id: "ebook-11", title: "Volume 11: Scrumptious Smoothies", image: "/images/Volume-11_Scrumptious Smoothies.png", message: "Hi! I'm interested in 'Volume 11: Scrumptious Smoothies' ebook. Could you tell me more?" },
-  { id: "ebook-12", title: "Volume 12: Homemade Chocolate Making", image: "/images/Volume-12_Homemade-Chocolate Making.jpg", message: "Hi! I'm interested in 'Volume 12: Homemade Chocolate Making' ebook. Could you tell me more?" },
-  { id: "ebook-13", title: "Volume 13: Sugar-Free Cakes", image: "/images/Volume-13_Sugar-Free-Cakes.png", message: "Hi! I'm interested in 'Volume 13: Sugar-Free Cakes' ebook. Could you tell me more?" },
-  { id: "ebook-14", title: "Volume 14: Eat Desserts n' Still Lose Weight", image: "/images/Volume-14_Eat-Desserts-n-Still-Lose-Weight.png", message: "Hi! I'm interested in 'Volume 14: Eat Desserts n' Still Lose Weight' ebook. Could you tell me more?" },
-  { id: "ebook-15", title: "Volume 15: Parfait Manual", image: "/images/Volume-15_Parfait-Mansal.png", message: "Hi! I'm interested in 'Volume 15: Parfait Manual' ebook. Could you tell me more?" },
-  { id: "ebook-16", title: "Volume 16: Fruit, Seed n' Nut Granola", image: "/images/Volume-16_Fruit-Seed-n-Nut-Granola.png", message: "Hi! I'm interested in 'Volume 16: Fruit, Seed n' Nut Granola' ebook. Could you tell me more?" },
-];
-
-// ─────────────────────────────────────────────────────────────────────────────
 // SVG ICONS
 // ─────────────────────────────────────────────────────────────────────────────
 const IconScale = () => (
@@ -529,12 +506,6 @@ const IconThermometer = () => (
   </svg>
 );
 
-const IconWhatsApp = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-  </svg>
-);
-
 const IconInstagram = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
@@ -559,8 +530,9 @@ const IconTikTok = () => (
 // SITE NAVIGATION BAR
 // ─────────────────────────────────────────────────────────────────────────────
 const NAV_LINKS = [
-  { label: "Shop", href: MAIN_SITE_URL + "/shop" },
-  { label: "Academy", href: MAIN_SITE_URL + "/academy" },
+  { label: "Shop", href: MAIN_SITE_URL + "/#shop" },
+  { label: "Academy", href: MAIN_SITE_URL + "/#academy" },
+  { label: "Ebooks", href: "https://www.bakingintelligence.shop/recipe-ebooks" },
   { label: "Converter", href: MAIN_SITE_URL + "/converter", active: true },
 ];
 
@@ -692,79 +664,6 @@ function IngredientPicker({ value, onChange, customIngredients }) {
         </>
       )}
     </>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// BOOK AD CARD
-// ─────────────────────────────────────────────────────────────────────────────
-function EbookCard({ book, index }) {
-  const waLink = WA_NUMBER
-    ? `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(book.message)}`
-    : "#";
-
-  return (
-    <a
-      href={waLink}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="bc-ebook-card"
-      style={{ animationDelay: `${index * 0.55}s` }}
-      title={`Enquire about: ${book.title}`}
-    >
-      <div className="bc-ebook-cover">
-        <img src={book.image} alt={book.title} className="bc-ebook-image" />
-        <div className="bc-ebook-overlay">
-          <div className="bc-ebook-title-overlay">{book.title}</div>
-        </div>
-        <div className="bc-ebook-enquire-badge"><IconWhatsApp /></div>
-      </div>
-      <div className="bc-ebook-cta">
-        <span className="bc-wa-icon"><IconWhatsApp /></span>
-        Enquire
-      </div>
-    </a>
-  );
-}
-
-function EbooksSection({ onSwitchToBooks }) {
-  return (
-    <div className="bc-ebooks-section">
-      <div className="bc-ebooks-header">
-        <span className="bc-ebooks-label bc-handwriting-title">📖 From the Author's Kitchen</span>
-        <p className="bc-ebooks-sub-large">Tap an ebook to enquire via WhatsApp</p>
-      </div>
-      <div className="bc-ebooks-scroll">
-        {EBOOKS.slice(0, 3).map((book, i) => <EbookCard key={book.id} book={book} index={i} />)}
-      </div>
-      <a
-        href="#ebooks"
-        role="button"
-        className="bc-ebooks-hint-more"
-        onClick={(e) => {
-          e.preventDefault();
-          if (onSwitchToBooks) onSwitchToBooks();
-        }}
-      >
-        Browse our recipe eBooks library
-      </a>
-    </div>
-  );
-}
-
-function EbooksTab() {
-  return (
-    <div className="bc-ebooks-tab">
-      <div className="bc-ebooks-header">
-        <h2 className="bc-ebooks-title bc-handwriting-title">Our Recipe eBooks</h2>
-        <p className="bc-ebooks-sub-large">Browse our full collection of detailed step-by-step recipe ebooks and click to enquire via WhatsApp</p>
-      </div>
-      <div className="bc-ebooks-grid">
-        {EBOOKS.map((book, i) => (
-          <EbookCard key={book.id} book={book} index={i} />
-        ))}
-      </div>
-    </div>
   );
 }
 
@@ -989,15 +888,9 @@ function TemperatureTab({ tempVal, setTempVal, tempUnit, setTempUnit, copied, se
 // FOOTER
 // ─────────────────────────────────────────────────────────────────────────────
 function AppFooter() {
-  const waLink = WA_NUMBER ? `https://wa.me/${WA_NUMBER.replace("+", "")}` : null;
   return (
     <footer className="bc-footer">
       <div className="bc-footer-socials">
-        {waLink && (
-          <a href={waLink} target="_blank" rel="noopener noreferrer" className="bc-social-link" title="WhatsApp">
-            <IconWhatsApp />
-          </a>
-        )}
         <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="bc-social-link" title="Instagram">
           <IconInstagram />
         </a>
@@ -1078,6 +971,11 @@ export default function BakingConverter() {
 
   return (
     <div className={`bc-wrap theme-${theme}`}>
+      {/* Background decorative elements */}
+      <div className="bc-bg-decoration">
+        <div className="bc-bg-circles" />
+        <div className="bc-bg-dough" />
+      </div>
 
       {/* ── Site Navigation ── */}
       <SiteNav />
@@ -1097,6 +995,7 @@ export default function BakingConverter() {
         </div>
         <div className="bc-title-block">
           <h1 className="bc-visually-hidden">Baking Measurement & Ingredient Converter</h1>
+          <span className="bc-pro-baker-heading bc-handwriting-title">Pro Baker</span>
           <h2 className="bc-title-main">{tab === "temperature" ? "Temperature" : "Ingredients"}</h2>
           <p className="bc-title-sub">C O N V E R T E R</p>
         </div>
@@ -1164,9 +1063,6 @@ export default function BakingConverter() {
 
             <div className="bc-hint">Tap any result to copy</div>
 
-            {/* ── Book Ads ── */}
-            <EbooksSection onSwitchToBooks={() => setTab("books")} />
-
             {/* ── Static SEO Conversion Charts ── */}
             <ConversionCharts />
           </>
@@ -1184,8 +1080,7 @@ export default function BakingConverter() {
           />
         )}
 
-        {/* ── EBOOKS TAB ── */}
-        {tab === "books" && <EbooksTab />}
+
 
         {/* ── CUSTOM TAB ── */}
         {tab === "custom" && (
@@ -1226,7 +1121,6 @@ export default function BakingConverter() {
                 <button id="add-ingredient-btn" onClick={addCustom} className="bc-add-btn">
                   <IconPlus /> ADD INGREDIENT
                 </button>
-                <p className="bc-custom-footer-note">Tap an ebook to enquire via WhatsApp</p>
               </div>
             </div>
 
@@ -1261,7 +1155,6 @@ export default function BakingConverter() {
         <AppFooter />
       </div>
 
-      {/* ── Bottom Navigation ── */}
       <nav className="bc-tabs">
         <button onClick={() => setTab("convert")} className={`bc-tab ${tab === "convert" ? "active" : ""}`}>
           <IconConvert />
@@ -1274,10 +1167,6 @@ export default function BakingConverter() {
         <button onClick={() => setTab("custom")} className={`bc-tab ${tab === "custom" ? "active" : ""}`}>
           <IconEdit />
           <span>Custom</span>
-        </button>
-        <button onClick={() => setTab("books")} className={`bc-tab ${tab === "books" ? "active" : ""}`}>
-          <span className="bc-tab-icon">📖</span>
-          <span>Ebooks</span>
         </button>
       </nav>
 
