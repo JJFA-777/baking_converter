@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import "./App.css";
 import ConversionCharts from "./ConversionCharts";
+import logo from "./logo.png";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // ASSETS
 // ─────────────────────────────────────────────────────────────────────────────
-const LOGO = "/bi_logo.png";
-const LOGO_WHITE = "/bi_logo.png";
+const LOGO = logo;
+const LOGO_WHITE = logo;
 
 // Main Site URL
 const MAIN_SITE_URL = "https://bakingintelligence.shop";
@@ -526,6 +527,41 @@ const IconTikTok = () => (
   </svg>
 );
 
+const IconHamburger = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="4" y1="6" x2="20" y2="6"/>
+    <line x1="4" y1="12" x2="20" y2="12"/>
+    <line x1="4" y1="18" x2="20" y2="18"/>
+  </svg>
+);
+
+const IconClose = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"/>
+    <line x1="6" y1="6" x2="18" y2="18"/>
+  </svg>
+);
+
+const IconSun = ({ style }) => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={style}>
+    <circle cx="12" cy="12" r="5"/>
+    <line x1="12" y1="1" x2="12" y2="3"/>
+    <line x1="12" y1="21" x2="12" y2="23"/>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+    <line x1="1" y1="12" x2="3" y2="12"/>
+    <line x1="21" y1="12" x2="23" y2="12"/>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+    <line x1="18.36" y1="4.22" x2="19.78" y2="5.64"/>
+  </svg>
+);
+
+const IconMoon = ({ style }) => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={style}>
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+);
+
 // ─────────────────────────────────────────────────────────────────────────────
 // SITE NAVIGATION BAR
 // ─────────────────────────────────────────────────────────────────────────────
@@ -536,7 +572,7 @@ const NAV_LINKS = [
   { label: "Converter", href: MAIN_SITE_URL + "/converter", active: true },
 ];
 
-function SiteNav() {
+function SiteNav({ onToggleMobileMenu, mobileMenuOpen }) {
   return (
     <nav className="bc-site-nav" aria-label="Main site navigation">
       <a href={MAIN_SITE_URL} className="bc-site-nav-back" title="Back to Baking Intelligence">
@@ -556,6 +592,16 @@ function SiteNav() {
           </a>
         ))}
       </div>
+      {/* Hamburger button for mobile */}
+      <button
+        className="bc-hamburger"
+        onClick={onToggleMobileMenu}
+        aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+        aria-expanded={mobileMenuOpen}
+        aria-controls="mobile-menu"
+      >
+        {mobileMenuOpen ? <IconClose /> : <IconHamburger />}
+      </button>
     </nav>
   );
 }
@@ -923,7 +969,8 @@ export default function BakingConverter() {
   const [copied, setCopied]     = useState("");
   const [tempVal, setTempVal]   = useState("180");
   const [tempUnit, setTempUnit] = useState("celsius");
-  const [theme, setTheme]       = useState(() => localStorage.getItem("bi_theme") || "standard");
+  const [theme, setTheme]       = useState(() => localStorage.getItem("bi_theme") || "new");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("bi_theme", theme);
@@ -969,6 +1016,14 @@ export default function BakingConverter() {
     setCopied(u); setTimeout(() => setCopied(""), 1800);
   }
 
+  function toggleMobileMenu() {
+    setMobileMenuOpen(prev => !prev);
+  }
+
+  function closeMobileMenu() {
+    setMobileMenuOpen(false);
+  }
+
   return (
     <div className={`bc-wrap theme-${theme}`}>
       {/* Background decorative elements */}
@@ -978,7 +1033,74 @@ export default function BakingConverter() {
       </div>
 
       {/* ── Site Navigation ── */}
-      <SiteNav />
+      <SiteNav onToggleMobileMenu={toggleMobileMenu} mobileMenuOpen={mobileMenuOpen} />
+
+      {/* Mobile Menu Panel */}
+      <div className="bc-mobile-menu" id="mobile-menu" aria-hidden={!mobileMenuOpen}>
+        <div className="bc-mobile-menu-content">
+          <button className="bc-mobile-close-btn" onClick={closeMobileMenu} aria-label="Close menu">
+            <IconClose />
+          </button>
+          <div className="bc-mobile-menu-theme">
+            <span>Theme</span>
+            <div className="bc-theme-switcher-mobile">
+              <button
+                className={`bc-theme-btn${theme === 'luxe' ? ' active' : ''}`}
+                onClick={() => { setTheme('luxe'); closeMobileMenu(); }}
+                aria-pressed={theme === 'luxe'}
+                style={{ backgroundColor: theme === 'luxe' ? 'var(--color-champagne)' : 'var(--color-cream)' }}
+              >
+                {theme === 'luxe' ? <IconSun style={{ color: '#FFC72A' }} /> : <IconMoon style={{ color: '#BE6A41' }} />}
+              </button>
+              <button
+                className={`bc-theme-btn${theme === 'standard' ? ' active' : ''}`}
+                onClick={() => { setTheme('standard'); closeMobileMenu(); }}
+                aria-pressed={theme === 'standard'}
+                style={{ backgroundColor: theme === 'standard' ? 'var(--color-champagne)' : 'var(--color-cream)' }}
+              >
+                {theme === 'standard' ? <IconSun style={{ color: '#BE6A41' }} /> : <IconMoon style={{ color: '#C0504F' }} />}
+              </button>
+              <button
+                className={`bc-theme-btn${theme === 'new' ? ' active' : ''}`}
+                onClick={() => { setTheme('new'); closeMobileMenu(); }}
+                aria-pressed={theme === 'new'}
+                style={{ backgroundColor: theme === 'new' ? 'var(--color-champagne)' : 'var(--color-cream)' }}
+              >
+                {theme === 'new' ? <IconSun style={{ color: '#C0504F' }} /> : <IconMoon style={{ color: '#C0504F' }} />}
+              </button>
+              <button
+                className={`bc-theme-btn${theme === 'teal' ? ' active' : ''}`}
+                onClick={() => { setTheme('teal'); closeMobileMenu(); }}
+                aria-pressed={theme === 'teal'}
+                style={{ backgroundColor: theme === 'teal' ? 'var(--color-champagne)' : 'var(--color-cream)' }}
+              >
+                {theme === 'teal' ? <IconSun style={{ color: '#0DA7CA' }} /> : <IconMoon style={{ color: '#0DA7CA' }} />}
+              </button>
+              <button
+                className={`bc-theme-btn${theme === 'dark' ? ' active' : ''}`}
+                onClick={() => { setTheme('dark'); closeMobileMenu(); }}
+                aria-pressed={theme === 'dark'}
+                style={{ backgroundColor: theme === 'dark' ? 'var(--color-champagne)' : 'var(--color-cream)' }}
+              >
+                {theme === 'dark' ? <IconSun style={{ color: '#8E4F69' }} /> : <IconMoon style={{ color: '#8E4F69' }} />}
+              </button>
+            </div>
+          </div>
+
+          <div className="bc-mobile-nav-links">
+            {NAV_LINKS.map(link => (
+              <a
+                key={link.label}
+                href={link.href}
+                className={`bc-mobile-nav-link${link.active ? " is-active" : ""}`}
+                onClick={closeMobileMenu}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* ── Header ── */}
       <header className="bc-header">
@@ -989,13 +1111,14 @@ export default function BakingConverter() {
               <option value="luxe">Luxe</option>
               <option value="standard">Warm</option>
               <option value="new">Blush</option>
+              <option value="teal">Teal</option>
               <option value="dark">Dark Mode</option>
             </select>
           </div>
         </div>
         <div className="bc-title-block">
           <h1 className="bc-visually-hidden">Baking Measurement & Ingredient Converter</h1>
-          <span className="bc-pro-baker-heading bc-handwriting-title">Pro Baker</span>
+          <span className="bc-pro-baker-heading bc-handwriting-title">PRO BAKER</span>
           <h2 className="bc-title-main">{tab === "temperature" ? "Temperature" : "Ingredients"}</h2>
           <p className="bc-title-sub">C O N V E R T E R</p>
         </div>
